@@ -2,6 +2,7 @@ package ie.project.configuration.controllers;
 
 import ie.project.PublishStystemOfArticlesScienceApplication;
 import ie.project.controllers.HomeController;
+import ie.project.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,7 @@ public class HomeControllerTest {
     @Autowired
     MockHttpServletRequest request;
 
+
     private MockMvc mockMvc;
 
     @Before
@@ -51,6 +53,7 @@ public class HomeControllerTest {
                 .andDo(print())
                 .andExpect(view().name("index"))
                 .andExpect(status().isOk());
+
 
     }
 }

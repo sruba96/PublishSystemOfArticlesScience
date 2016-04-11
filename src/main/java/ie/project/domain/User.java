@@ -18,10 +18,12 @@ public class User {
     private long id;
 
     private String login;
-    private String password;
+    private char[] password;
 
     private String firstName;
     private String lastName;
+
+    private EmailAddress email;
 
     @ManyToMany(mappedBy = "users")
     private List<Project> projects;
@@ -77,11 +79,19 @@ public class User {
         this.files = files;
     }
 
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(char[] password) {
         this.password = password;
+    }
+
+    public EmailAddress getEmail() {
+        return email;
+    }
+
+    public void setEmail(EmailAddress email) {
+        this.email = email;
     }
 }
