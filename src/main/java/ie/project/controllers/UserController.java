@@ -7,10 +7,9 @@ import ie.project.responses.AddUserResponse;
 import ie.project.responses.ShowUsersResponse;
 import ie.project.service.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Iterator;
 
 /**
  * Created by pawel on 12.04.16.
@@ -21,15 +20,12 @@ public class UserController {
     @Autowired
     DBService dbService;
 
-    @RequestMapping(value = {"/addUser"})
+    @RequestMapping(value = {"/addUser"}, method = RequestMethod.POST)
     public AddUserResponse addUser(@RequestBody UserStatus userStatus){
-
         AddUserResponse addUserResponse = new AddUserResponse();
-
         User user = prepareUser(userStatus);
-
         dbService.saveUser(user);
-
+        addUserResponse.setResult(true);
         return addUserResponse;
     }
 
@@ -41,7 +37,11 @@ public class UserController {
         return user;
     }
 
+    @RequestMapping(value = "/showUsers", method = RequestMethod.GET)
     public ShowUsersResponse userList(){
-
+        ShowUsersResponse usersResponse = new ShowUsersResponse();
+        usersResponse.setList(dbService.findAllUsers());
+        usersResponse.setResult(true);
+        return usersResponse;
     }
 }

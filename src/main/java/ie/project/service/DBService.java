@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created by pawel on 11.04.16.
@@ -48,6 +49,10 @@ public class DBService {
 
     public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
     }
 
 }
