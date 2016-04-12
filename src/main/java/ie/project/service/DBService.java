@@ -3,6 +3,7 @@ package ie.project.service;
 import ie.project.domain.EmailAddress;
 import ie.project.domain.File;
 import ie.project.domain.User;
+import ie.project.jacksonmapping.FileMap;
 import ie.project.jacksonmapping.UserStatus;
 import ie.project.repositories.FileRepository;
 import ie.project.repositories.UserRepository;
@@ -20,30 +21,22 @@ import java.util.List;
 @Transactional
 @Service
 public class DBService {
-
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private FileRepository fileRepository;
 
     @PostConstruct
     public void init() {
-
         User user = new User();
         user.setFirstName("Wacek");
         user.setLastName("Lolek");
-
         user.setLogin("wacuuuch");
         char[] passwd = {'a', 'b', 'c'};
         user.setPassword(passwd);
         String email = "robert@example.mail.com";
         user.setEmail(new EmailAddress(email));
-
-
         userRepository.save(user);
-
         User user1 = new User();
         user1.setFirstName("John");
         user1.setLastName("Zorn");
@@ -72,15 +65,29 @@ public class DBService {
         return userStatusList;
     }
 
-    public List<File> findAllFiles() {
-        return fileRepository.findAll();
+    public List<FileMap> findAllFiles() {
+
+        List<File> fileList = fileRepository.findAll();
+        List<FileMap> fileMapList = new ArrayList<>();
+        for (File f : fileList) {
+
+            FileMap fileMap = new FileMap();
+            fileMap.setFileName(f.getName());
+            fileMap.setPathName(f.getSource());
+
+            fileMapList.add(fileMap);
+        }
+        return fileMapList;
     }
 
-    public boolean saveFile(File file) {
-       if (fileRepository.save(file) == null)
-           return false;
-        else
-           return true;
-    }
+    public boolean saveFile(String filename, String filepath) {
 
+        File file = new File();
+        file.setName(filename);
+        file.setSource(filepath);
+
+        if (fileRepository.save(file) != null)
+            return true;
+        return false;
+    }
 }

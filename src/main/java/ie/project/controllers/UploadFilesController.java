@@ -70,6 +70,7 @@ public class UploadFilesController {
         stream.write(uploadfile.getBytes());
         stream.close();
 
+        dbService.saveFile(uploadfile.getOriginalFilename() , filepath);
     }
 
 }

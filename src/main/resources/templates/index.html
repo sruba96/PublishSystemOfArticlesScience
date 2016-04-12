@@ -17,12 +17,12 @@
     example.directive('fileModel', ['$parse', function ($parse) {
         return {
             restrict: 'A',
-            link: function(scope, element, attrs) {
+            link: function (scope, element, attrs) {
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
 
-                element.bind('change', function(){
-                    scope.$apply(function(){
+                element.bind('change', function () {
+                    scope.$apply(function () {
                         modelSetter(scope, element[0].files[0]);
                     });
                 });
@@ -31,25 +31,25 @@
     }]);
 
     example.service('fileUpload', ['$http', function ($http) {
-        this.uploadFileToUrl = function(file, uploadUrl){
+        this.uploadFileToUrl = function (file, uploadUrl) {
             var fd = new FormData();
             fd.append('file', file);
             $http.post(uploadUrl, fd, {
                         transformRequest: angular.identity,
                         headers: {'Content-Type': undefined}
                     })
-                    .success(function(){
+                    .success(function () {
                     })
-                    .error(function(){
+                    .error(function () {
                     });
         }
     }]);
 
-    example.controller('myCtrl', ['$scope', 'fileUpload', function($scope, fileUpload){
+    example.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
 
-        $scope.uploadFile = function(){
+        $scope.uploadFile = function () {
             var file = $scope.myFile;
-            console.log('file is ' );
+            console.log('file is ');
             console.dir(file);
             var uploadUrl = "/uploadfile";
             fileUpload.uploadFileToUrl(file, uploadUrl);
@@ -67,6 +67,7 @@
         $scope.upLoadForm = true;
         //this.users = [];
         this.user = {};
+//        this.listFiles = [];
 
         this.addUser = function () {
 
@@ -91,6 +92,32 @@
             });
         };
 
+        this.showFilesList = function () {
+
+            self.showFiles();
+            var ajax = $http.get('/showfiles');
+
+            ajax.success(function (data) {
+                if (data.result) {
+                    self.listFiles = data.fileList;
+//                    $scope.registerForm = true;
+
+                }
+            });
+        };
+
+        this.downloadFile = function (path) {
+
+            self.hideAll();
+            var ajax = $http.get(path);
+
+            ajax.success(function (data) {
+                if (data.result) {
+                    self.listFiles = data.fileList;
+                }
+            });
+        };
+
         this.login = function () {
             this.hideAll();
             $scope.loginForm = false;
@@ -112,10 +139,17 @@
             $scope.upLoadForm = false;
         };
 
+        this.showFiles = function () {
+            this.hideAll();
+            $scope.listFiles = false;
+        };
+
         this.hideAll = function () {
             $scope.loginForm = true;
             $scope.registerForm = true;
             $scope.listUsers = true;
+            $scope.listFiles = true;
+            $scope.upLoadForm = true;
 
             this.user = {};
         }
@@ -124,10 +158,12 @@
 </script>
 
 
-<div><label ng-click='c.login()'>login</label> |
+<div>
+    <label ng-click='c.login()'>login</label> |
     <label ng-click='c.register()'>register</label> |
-     <label ng-click='c.showUsers()'>show users list</label> |
-    <label ng-click='c.showUpLoadForm()'>show users list</label>
+    <label ng-click='c.showUsers()'>show users list</label> |
+    <label ng-click='c.showUpLoadForm()'>show upload form</label> |
+    <label ng-click='c.showFilesList()'>show files list</label> |
 </div>
 <br/>
 
@@ -138,24 +174,33 @@
     <input type="submit" value="Add"/>
 </form>
 
-<form ng-hide="loginForm"  ng-submit="c.loginUser()">
+<form ng-hide="loginForm" ng-submit="c.loginUser()">
     Login: <input ng-model="c.user.login" type="text"/><br/>
     password: <input ng-model="c.user.password" type="password"/><br/>
     <input type="submit" value="log"/>
 </form>
 
+
+
 <div ng-hide="listUsers">
     Count: {{ c.users.length }}<br/>
-    <div ng-repeat="u in c.users" style="margin: 2px; background: silver;">
+    <div ng-repeat="u in c.users" style="margin: 2px; background: #c0b1b1;">
         login: {{ u.login }}<br/>
         email: {{ u.email}}<br/>
         <!--<button ng-click="c.removeUser( u.id )">Remove</button>-->
     </div>
-
 </div>
 
-<div ng-hide="upLoadForm" ng-controller="myCtrl as m" >
-    <form >
+<div ng-hide="listFiles">
+    Count: {{ c.listFiles.length }}<br/>
+    <div ng-repeat="u in c.listFiles" style="margin: 2px; background: #c0b1b1;">
+        Nazwa: <label ng-click="c.downloadFile(u.pathName)"> {{ u.fileName }} </label><br/>
+        <!--<button ng-click="c.removeUser( u.id )">Remove</button>-->
+    </div>
+</div>
+
+<div ng-hide="upLoadForm" ng-controller="myCtrl as m">
+    <form>
         <input type="file" file-model="myFile"/>
         <button ng-click="uploadFile()">upload me</button>
     </form>

@@ -9,7 +9,6 @@ public class UserStatus {
     private char[] password;
     private String email;
 
-
     public String getLogin() {
         return login;
     }
