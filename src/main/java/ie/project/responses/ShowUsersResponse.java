@@ -1,6 +1,6 @@
 package ie.project.responses;
 
-import ie.project.domain.User;
+import ie.project.jacksonmapping.UserStatus;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public class ShowUsersResponse {
 
     private boolean result;
-    private List<User> list;
+    private List<UserStatus> list;
 
     public boolean isResult() {
         return result;
@@ -20,11 +20,11 @@ public class ShowUsersResponse {
         this.result = result;
     }
 
-    public List<User> getList() {
+    public List<UserStatus> getList() {
         return list;
     }
 
-    public void setList(List<User> list) {
+    public void setList(List<UserStatus> list) {
         this.list = list;
     }
 }

@@ -2,12 +2,14 @@ package ie.project.service;
 
 import ie.project.domain.EmailAddress;
 import ie.project.domain.User;
+import ie.project.jacksonmapping.UserStatus;
 import ie.project.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,8 +53,19 @@ public class DBService {
         return userRepository.save(user);
     }
 
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    public List<UserStatus> findAllUsers() {
+
+        List<User> users = userRepository.findAll();
+        List<UserStatus> userStatusList = new ArrayList<>();
+
+        for(User u : users){
+            UserStatus userStaus = new UserStatus();
+            userStaus.setLogin(u.getLogin());
+            userStaus.setEmail(u.getEmail().toString());
+            userStatusList.add(userStaus);
+        }
+
+        return userStatusList;
     }
 
 }
