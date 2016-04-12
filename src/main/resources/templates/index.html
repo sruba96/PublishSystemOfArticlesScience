@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html ng-app="myApp" xmlns="http://www.w3.org/1999/xhtml">
-<!--<script src="../static/js/angular.js"></script>-->
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
-</script>
+<script src="/js/angular.js"></script>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
+<script src="/js/UploadController.js"></script>
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -20,6 +20,7 @@
         $scope.registerForm = true;
         $scope.loginForm = true;
         $scope.listUsers = true;
+        $scope.upLoadForm = true;
         //this.users = [];
         this.user = {};
 
@@ -62,6 +63,11 @@
             $scope.listUsers = false;
         };
 
+        this.showUpLoadForm = function () {
+            this.hideAll();
+            $scope.upLoadForm = false;
+        };
+
         this.hideAll = function () {
             $scope.loginForm = true;
             $scope.registerForm = true;
@@ -76,8 +82,10 @@
 </script>
 
 
-<div><label ng-click='c.login()'>login</label> | <label ng-click='c.register()'>register</label>
-    | <label ng-click='c.showUsers()'>show users list</label>
+<div><label ng-click='c.login()'>login</label> |
+    <label ng-click='c.register()'>register</label> |
+     <label ng-click='c.showUsers()'>show users list</label> |
+    <label ng-click='c.showUpLoadForm()'>show users list</label>
 </div>
 <br/>
 
@@ -102,6 +110,13 @@
         <!--<button ng-click="c.removeUser( u.id )">Remove</button>-->
     </div>
 
+</div>
+
+<div ng-app="secApp" ng-hide="upLoadForm" ng-controller="myCtrl as m">
+    <form>
+        <input type="file" file-model="myFile"/>
+        <button ng-click="m.uploadFile()">upload me</button>
+    </form>
 </div>
 </body>
 </html>
