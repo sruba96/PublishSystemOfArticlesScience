@@ -1,21 +1,13 @@
 package ie.project.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
  * Created by pawel on 11.04.16.
  */
 @Entity
-public class File {
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
-    private long id;
+public class File extends AbstractEntity {
 
     private String name;
     private String source;
@@ -40,14 +32,6 @@ public class File {
 
     public void setSource(String source) {
         this.source = source;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public User getUser() {

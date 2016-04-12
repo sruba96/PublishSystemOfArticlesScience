@@ -4,8 +4,6 @@ import ie.project.domain.EmailAddress;
 import ie.project.domain.User;
 import ie.project.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -14,8 +12,8 @@ import javax.transaction.Transactional;
 /**
  * Created by pawel on 11.04.16.
  */
-@Controller
-@ComponentScan("ie.project.*")
+@Transactional
+@Service
 public class DBService {
 
 
@@ -48,5 +46,8 @@ public class DBService {
         userRepository.save(user1);
     }
 
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
 
 }

@@ -1,5 +1,6 @@
 package ie.project.domain;
 
+import com.sun.istack.internal.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -10,12 +11,7 @@ import java.util.List;
  * Created by pawel on 11.04.16.
  */
 @Entity
-public class User {
-
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
-    private long id;
+public class User extends AbstractEntity {
 
     private String login;
     private char[] password;
@@ -23,6 +19,8 @@ public class User {
     private String firstName;
     private String lastName;
 
+    @Column(unique = true)
+    @NotNull
     private EmailAddress email;
 
     @ManyToMany(mappedBy = "users")
@@ -30,14 +28,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<File> files;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getLogin() {
         return login;

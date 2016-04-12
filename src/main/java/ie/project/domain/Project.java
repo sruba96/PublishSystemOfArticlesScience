@@ -1,10 +1,6 @@
 package ie.project.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Id;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.List;
@@ -13,12 +9,7 @@ import java.util.List;
  * Created by pawel on 11.04.16.
  */
 @Entity
-public class Project {
-
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
-    private long id;
+public class Project extends AbstractEntity {
 
     private String name;
 
@@ -27,14 +18,6 @@ public class Project {
 
     @OneToMany(mappedBy = "project")
     private List<File> files;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public List<User> getUsers() {
         return users;
