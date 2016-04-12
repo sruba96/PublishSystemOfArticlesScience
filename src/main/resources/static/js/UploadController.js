@@ -1,10 +1,6 @@
 /**
  * Created by pawel on 08.04.16.
  */
-
-
-
-
     var myApp = angular.module('secApp', []);
 
     myApp.directive('fileModel', ['$parse', function ($parse) {
