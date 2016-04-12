@@ -9,7 +9,7 @@ public class AddUserResponse {
 
     private String message;
 
-    public boolean isResult(){
+    public boolean isResult() {
         return result;
     }
 

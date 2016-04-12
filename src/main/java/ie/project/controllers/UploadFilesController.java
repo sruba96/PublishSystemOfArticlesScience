@@ -1,14 +1,21 @@
 package ie.project.controllers;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import com.sun.xml.internal.bind.v2.TODO;
+import ie.project.service.DBService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Paths;
 import java.security.SecureRandom;
@@ -26,6 +33,9 @@ public class UploadFilesController {
         return new BigInteger(80, random).toString(32);
     }
 
+    @Autowired
+    DBService dbService;
+
     @RequestMapping(value = "/uploadfile", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> uploadFile(
@@ -33,6 +43,10 @@ public class UploadFilesController {
 
         try {
             saveFile(uploadfile);
+
+            // TODO: 12.04.16 dbesrvice, i will create new File class from my domain 
+            
+//            ie.project.domain.File
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -56,25 +70,6 @@ public class UploadFilesController {
         stream.write(uploadfile.getBytes());
         stream.close();
 
-    }
-
-    @RequestMapping(value = "/files/{fileID}", method = RequestMethod.GET)
-    public void downloadFile(
-            @PathVariable("fileID") String fileName,
-            HttpServletResponse response) {
-        try {
-            String src = "files/" + fileName + ".png";
-            InputStream fileInputStream = new FileInputStream(src);
-
-            response.addHeader("Content-disposition", "attachment;filename=" + fileName + ".png");
-            response.setContentType("txt/plain");
-
-            // Copy the stream to the response's output stream.
-            IOUtils.copy(fileInputStream, response.getOutputStream());
-            response.flushBuffer();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 
 }

@@ -10,7 +10,6 @@ public class UserStatus {
     private String email;
 
 
-
     public String getLogin() {
         return login;
     }

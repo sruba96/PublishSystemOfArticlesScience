@@ -1,8 +1,10 @@
 package ie.project.service;
 
 import ie.project.domain.EmailAddress;
+import ie.project.domain.File;
 import ie.project.domain.User;
 import ie.project.jacksonmapping.UserStatus;
+import ie.project.repositories.FileRepository;
 import ie.project.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class DBService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FileRepository fileRepository;
 
     @PostConstruct
     public void init() {
@@ -58,14 +63,24 @@ public class DBService {
         List<User> users = userRepository.findAll();
         List<UserStatus> userStatusList = new ArrayList<>();
 
-        for(User u : users){
+        for (User u : users) {
             UserStatus userStaus = new UserStatus();
             userStaus.setLogin(u.getLogin());
             userStaus.setEmail(u.getEmail().toString());
             userStatusList.add(userStaus);
         }
-
         return userStatusList;
+    }
+
+    public List<File> findAllFiles() {
+        return fileRepository.findAll();
+    }
+
+    public boolean saveFile(File file) {
+       if (fileRepository.save(file) == null)
+           return false;
+        else
+           return true;
     }
 
 }

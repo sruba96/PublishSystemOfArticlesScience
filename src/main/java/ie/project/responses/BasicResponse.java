@@ -10,7 +10,7 @@ public class BasicResponse {
     private String message;
 
 
-    public boolean isResult(){
+    public boolean isResult() {
         return result;
     }
 
@@ -18,7 +18,7 @@ public class BasicResponse {
         this.result = result;
     }
 
-    public boolean getResult(){
+    public boolean getResult() {
         return result;
     }
 

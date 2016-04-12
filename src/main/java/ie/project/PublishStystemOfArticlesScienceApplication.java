@@ -8,12 +8,12 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 @SpringBootApplication
 public class PublishStystemOfArticlesScienceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PublishStystemOfArticlesScienceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PublishStystemOfArticlesScienceApplication.class, args);
+    }
 
-	@Bean(name = "multipartResolver")
-	public StandardServletMultipartResolver resolver() {
-		return new StandardServletMultipartResolver();
-	}
+    @Bean(name = "multipartResolver")
+    public StandardServletMultipartResolver resolver() {
+        return new StandardServletMultipartResolver();
+    }
 }
