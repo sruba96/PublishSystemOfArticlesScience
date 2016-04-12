@@ -21,6 +21,7 @@ public class EmailAddress {
     public EmailAddress(String emailAddress) {
         Assert.isTrue(isValid(emailAddress), "Invalid email address!");
         this.value = emailAddress;
+
     }
 
     protected EmailAddress() {

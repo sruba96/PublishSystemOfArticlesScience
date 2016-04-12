@@ -1,14 +1,13 @@
 package ie.project.responses;
 
 /**
- * Created by pawel on 11.04.16.
+ * Created by pawel on 12.04.16.
  */
-public class BasicResponse {
+public class AddUserResponse {
 
-    private boolean result;
+    private boolean result = false;
 
     private String message;
-
 
     public boolean isResult(){
         return result;
@@ -16,10 +15,6 @@ public class BasicResponse {
 
     public void setResult(boolean result) {
         this.result = result;
-    }
-
-    public boolean getResult(){
-        return result;
     }
 
     public String getMessage() {

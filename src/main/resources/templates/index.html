@@ -1,13 +1,107 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<script src="/js/angular.js"></script>
+<html ng-app="myApp" xmlns="http://www.w3.org/1999/xhtml">
+<!--<script src="../static/js/angular.js"></script>-->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+</script>
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta charset="UTF-8"/>
     <title>Home</title>
 </head>
-<body>
-<h1>Home Page</h1>
+<body ng-controller="MasterController as c" ng-cloak="">
+<script type="text/javascript">
+
+    var example = angular.module('myApp', []); // 'example' jest powiązany z ng-app="example"
+
+    example.controller('MasterController', function ($scope, $http) // serwis $http umożliwia zapytania ajax
+    {
+        var self = this;
+        $scope.registerForm = true;
+        $scope.loginForm = true;
+        $scope.listUsers = true;
+        //this.users = [];
+        this.user = {};
+
+        this.addUser = function () {
+
+
+            var ajax = $http.post('addUser', this.user);
+            this.user = {};
+
+            ajax.success(function (data) {
+                if (data.result) {
+
+                    $scope.registerForm = true;
+                }
+            });
+        };
+
+        this.takeUsers = function () {
+            var ajax = $http.get('showUsers');
+
+            ajax.success(function (data) {
+                if (data.result)
+                    self.users = data.list;
+            });
+        };
+
+        this.login = function () {
+            this.hideAll();
+            $scope.loginForm = false;
+        };
+
+        this.register = function () {
+            this.hideAll();
+            $scope.registerForm = false;
+        };
+
+        this.showUsers = function () {
+            this.hideAll();
+            this.takeUsers();
+            $scope.listUsers = false;
+        };
+
+        this.hideAll = function () {
+            $scope.loginForm = true;
+            $scope.registerForm = true;
+            $scope.listUsers = true;
+
+            this.user = {};
+        }
+
+
+    });
+
+</script>
+
+
+<div><label ng-click='c.login()'>login</label> | <label ng-click='c.register()'>register</label>
+    | <label ng-click='c.showUsers()'>show users list</label>
+</div>
+<br/>
+
+<form ng-hide="registerForm" ng-submit="c.addUser()">
+    Login: <input ng-model="c.user.login" type="text"/><br/>
+    email: <input ng-model="c.user.email" type="text"/><br/>
+    password: <input ng-model="c.user.password" type="password"/><br/>
+    <input type="submit" value="Add"/>
+</form>
+
+<form ng-hide="loginForm" ng-submit="c.loginUser()">
+    Login: <input ng-model="c.user.login" type="text"/><br/>
+    password: <input ng-model="c.user.password" type="password"/><br/>
+    <input type="submit" value="log"/>
+</form>
+
+<div ng-hide="listUsers">
+    Count: {{ c.users.length }}<br/>
+    <div ng-repeat="u in c.users" style="margin: 2px; background: silver;">
+        login: {{ u.login }}<br/>
+        email: {{ u.email}}<br/>
+        <!--<button ng-click="c.removeUser( u.id )">Remove</button>-->
+    </div>
+
+</div>
 </body>
 </html>
