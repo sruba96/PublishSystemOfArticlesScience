@@ -43,11 +43,6 @@ public class UploadFilesController {
 
         try {
             saveFile(uploadfile);
-
-            // TODO: 12.04.16 dbesrvice, i will create new File class from my domain 
-            
-//            ie.project.domain.File
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -60,9 +55,11 @@ public class UploadFilesController {
 
         // Get the filename and build the local file path (be sure that the
         // application have write permissions on such directory) GG - question
-        String filename = takeUnique() + uploadfile.getOriginalFilename();
+        String fileName = takeUnique() + uploadfile.getOriginalFilename();
         String directory = "files/";
-        String filepath = Paths.get(directory, filename).toString();
+        String filepath = Paths.get(directory, fileName).toString();
+
+        String extension = takeExtension(fileName);
 
         // Save the file locally
         BufferedOutputStream stream =
@@ -71,6 +68,18 @@ public class UploadFilesController {
         stream.close();
 
         dbService.saveFile(uploadfile.getOriginalFilename() , filepath);
+    }
+
+    private String takeExtension(String fileName) {
+        String extension = "";
+        int i = fileName.lastIndexOf('.');
+        int p = Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
+
+        if (i > p) {
+            extension = fileName.substring(i+1);
+        }
+
+        return extension;
     }
 
 }
