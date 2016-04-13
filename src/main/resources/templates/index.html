@@ -106,16 +106,10 @@
             });
         };
 
-        this.downloadFile = function (path) {
+        this.downloadFile = function (uniqueMark) {
 
             self.hideAll();
-            var ajax = $http.get(path);
-
-            ajax.success(function (data) {
-                if (data.result) {
-                    self.listFiles = data.fileList;
-                }
-            });
+            window.open('files/' + uniqueMark, '_blank');
         };
 
         this.login = function () {
@@ -181,7 +175,6 @@
 </form>
 
 
-
 <div ng-hide="listUsers">
     Count: {{ c.users.length }}<br/>
     <div ng-repeat="u in c.users" style="margin: 2px; background: #c0b1b1;">
@@ -194,7 +187,7 @@
 <div ng-hide="listFiles">
     Count: {{ c.listFiles.length }}<br/>
     <div ng-repeat="u in c.listFiles" style="margin: 2px; background: #c0b1b1;">
-        Nazwa: <label ng-click="c.downloadFile(u.pathName)"> {{ u.fileName }} </label><br/>
+        Nazwa: <label ng-click="c.downloadFile(u.uniqueMarks)"> {{ u.fileName }} </label><br/>
         <!--<button ng-click="c.removeUser( u.id )">Remove</button>-->
     </div>
 </div>

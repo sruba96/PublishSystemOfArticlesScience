@@ -11,8 +11,8 @@ public class File extends AbstractEntity {
 
     private String name;
     private String source;
-
-
+    private String extension;
+    private String uniqueMarks;
 
     @ManyToOne
     User user;
@@ -50,5 +50,21 @@ public class File extends AbstractEntity {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getUniqueMarks() {
+        return uniqueMarks;
+    }
+
+    public void setUniqueMarks(String uniqueMarks) {
+        this.uniqueMarks = uniqueMarks;
     }
 }

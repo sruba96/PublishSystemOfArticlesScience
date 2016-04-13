@@ -1,6 +1,5 @@
 package ie.project.controllers;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import ie.project.service.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,9 +28,6 @@ public class UploadFilesController {
 
     private SecureRandom random = new SecureRandom();
 
-    public String takeUnique() {
-        return new BigInteger(80, random).toString(32);
-    }
 
     @Autowired
     DBService dbService;
@@ -55,9 +51,10 @@ public class UploadFilesController {
 
         // Get the filename and build the local file path (be sure that the
         // application have write permissions on such directory) GG - question
-        String fileName = takeUnique() + uploadfile.getOriginalFilename();
+        String uniqueMarks = takeUnique();
+        String fileName = uploadfile.getOriginalFilename();
         String directory = "files/";
-        String filepath = Paths.get(directory, fileName).toString();
+        String filepath = Paths.get(directory, (uniqueMarks + fileName)).toString();
 
         String extension = takeExtension(fileName);
 
@@ -67,8 +64,13 @@ public class UploadFilesController {
         stream.write(uploadfile.getBytes());
         stream.close();
 
-        dbService.saveFile(uploadfile.getOriginalFilename() , filepath);
+        dbService.saveFile(uploadfile.getOriginalFilename(), filepath, extension , uniqueMarks);
     }
+
+    public String takeUnique() {
+        return new BigInteger(80, random).toString(32);
+    }
+
 
     private String takeExtension(String fileName) {
         String extension = "";
@@ -76,7 +78,7 @@ public class UploadFilesController {
         int p = Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
 
         if (i > p) {
-            extension = fileName.substring(i+1);
+            extension = fileName.substring(i + 1);
         }
 
         return extension;

@@ -1,7 +1,10 @@
 package ie.project.controllers;
 
+import ie.project.domain.File;
+import ie.project.responses.FileDownloadResponse;
 import ie.project.responses.ShowFileResponse;
 import ie.project.service.DBService;
+import org.apache.catalina.connector.Response;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -35,17 +38,21 @@ public class DownloadFilesController {
 
     @RequestMapping(value = "/files/{fileID}", method = RequestMethod.GET)
     public void downloadFile(
-            @PathVariable("fileID") String fileName,
+            @PathVariable("fileID") String uniqueMarks,
             HttpServletResponse response) {
-        try {
-            String src = "files/" + fileName;
-            // TODO: 12.04.16 I have problem with extension :(  
-            InputStream fileInputStream = new FileInputStream(src);
 
-            response.addHeader("Content-disposition", "attachment;filename=" + fileName);
+        try {
+            File file = dbService.findFile(uniqueMarks);
+
+            String src = file.getSource();
+            InputStream fileInputStream = new FileInputStream(src);
+            response.addHeader("Content-disposition", "attachment;filename="
+                    + file.getName());
             response.setContentType("txt/plain");
 
-            // Copy the stream to the response's output stream.
+//            fileDownloadResponse.setUrl(src);
+//            fileDownloadResponse.setResult(true);
+//             Copy the stream to the response's output stream.
             IOUtils.copy(fileInputStream, response.getOutputStream());
             response.flushBuffer();
         } catch (Exception e) {

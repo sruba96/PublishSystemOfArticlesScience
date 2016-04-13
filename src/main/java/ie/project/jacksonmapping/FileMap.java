@@ -6,14 +6,14 @@ package ie.project.jacksonmapping;
 public class FileMap {
 
     private String fileName;
-    private String pathName;
+    private String uniqueMarks;
 
-    public String getPathName() {
-        return pathName;
+    public String getUniqueMarks() {
+        return uniqueMarks;
     }
 
-    public void setPathName(String pathName) {
-        this.pathName = pathName;
+    public void setUniqueMarks(String uniqueMarks) {
+        this.uniqueMarks = uniqueMarks;
     }
 
     public String getFileName() {

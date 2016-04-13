@@ -73,21 +73,26 @@ public class DBService {
 
             FileMap fileMap = new FileMap();
             fileMap.setFileName(f.getName());
-            fileMap.setPathName(f.getSource());
-
+            fileMap.setUniqueMarks(f.getUniqueMarks());
             fileMapList.add(fileMap);
         }
         return fileMapList;
     }
 
-    public boolean saveFile(String filename, String filepath) {
+    public boolean saveFile(String filename, String filepath , String extension , String uniqueMarks) {
 
         File file = new File();
         file.setName(filename);
         file.setSource(filepath);
+        file.setExtension(extension);
+        file.setUniqueMarks(uniqueMarks);
 
         if (fileRepository.save(file) != null)
             return true;
         return false;
+    }
+
+    public File findFile(String uniqueMarks){
+        return fileRepository.findByUniqueMarks(uniqueMarks);
     }
 }
