@@ -1,0 +1,20 @@
+Paweł Malina
+
+Harmonogram:
+
+1. Przygotowanie serwera,
+konfiguracja: Spring Boot, Spring Data JPA,
+konfiguracja bazy danych - stworzenie domen.
+dodawanie uzytkownikow do bazy, wyswietlanie użytkownikow
+
+2. Dodawanie plików
+- stworzenie controllerów do obsługi dodawania plików i pobierania plikow
+- dodawanie plików, zapisywanie sciezek do BZ, jaki użytkownik dodał,
+- stworzenie funkcji obsługujących zapytania ajaxowe, zwracajace odpowiednie dane
+3. Logowanie
+- Obsługa sesji i bezpieczne logowanie do aplikacji
+- Autoryzacja uzytkownika przez mail, przypominanie hasla
+- Zabezpieczenie sciezek, dostep uzytkownika tylko do plikow wlasnych i dodanych w ramach projektu
+- Tworzenie projektow, zakladanie nowego artykułu
+4. Wyglad strony, dedline, validacja
+5. Testy, refaktoring
