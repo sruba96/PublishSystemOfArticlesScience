@@ -1,6 +1,5 @@
 package ie.project.domain;
 
-import com.sun.istack.internal.NotNull;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,9 +20,7 @@ public class User extends AbstractEntity {
     private String lastName;
 
     @Column(unique = true)
-    @NotNull
     private EmailAddress email;
-    //some change
     @ManyToMany(mappedBy = "users")
     private List<Project> projects;
 
