@@ -23,7 +23,7 @@ public class User extends AbstractEntity {
     @Column(unique = true)
     @NotNull
     private EmailAddress email;
-
+    //some change
     @ManyToMany(mappedBy = "users")
     private List<Project> projects;
 
