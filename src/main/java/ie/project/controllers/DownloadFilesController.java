@@ -1,11 +1,10 @@
 package ie.project.controllers;
 
 import ie.project.domain.File;
-import ie.project.responses.FileDownloadResponse;
 import ie.project.responses.ShowFileResponse;
 import ie.project.service.DBService;
-import org.apache.catalina.connector.Response;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+
+import org.h2.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
