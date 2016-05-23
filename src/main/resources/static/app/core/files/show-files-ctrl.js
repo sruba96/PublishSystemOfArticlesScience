@@ -5,7 +5,7 @@ app.controller('showFilesCtrl', function ($scope, $http) {
 
     var self = this;
 
-    self.fileList = {};
+    self.filesList = {};
 
     this.showFiles = function () {
 
@@ -13,7 +13,7 @@ app.controller('showFilesCtrl', function ($scope, $http) {
 
         ajax.success(function (data) {
             if (data.result) {
-                self.fileList = data.fileList;
+                self.filesList = data.fileList;
             }
         });
     };

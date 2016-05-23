@@ -1,5 +1,5 @@
 <div data-ng-controller="showUsersCtrl as c">
-    Count: {{users.length }}<br/>
+    Count: {{c.users.length }}<br/>
     <div ng-repeat="u in c.users" style="margin: 2px; background: #c0b1b1;">
         login: {{ u.login }}<br/>
         email: {{ u.email}}<br/>
