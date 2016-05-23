@@ -1,202 +1,66 @@
 <!DOCTYPE html>
-<html ng-app="myApp" xmlns="http://www.w3.org/1999/xhtml">
-<script src="/js/angular.js"></script>
-<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
-<script src="/js/UploadController.js"></script>
+<html lang="en" data-ng-app="app">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta charset="UTF-8"/>
-    <title>Home</title>
+    <title>SOP</title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+    <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
+    <!--my stylesheet-->
+    <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
-<body ng-controller="MasterController as c" ng-cloak="">
-<script type="text/javascript">
-
-    var example = angular.module('myApp', []); // 'example' jest powiązany z ng-app="example"
-
-    example.directive('fileModel', ['$parse', function ($parse) {
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-                var model = $parse(attrs.fileModel);
-                var modelSetter = model.assign;
-
-                element.bind('change', function () {
-                    scope.$apply(function () {
-                        modelSetter(scope, element[0].files[0]);
-                    });
-                });
-            }
-        };
-    }]);
-
-    example.service('fileUpload', ['$http', function ($http) {
-        this.uploadFileToUrl = function (file, uploadUrl) {
-            var fd = new FormData();
-            fd.append('file', file);
-            $http.post(uploadUrl, fd, {
-                        transformRequest: angular.identity,
-                        headers: {'Content-Type': undefined}
-                    })
-                    .success(function () {
-                    })
-                    .error(function () {
-                    });
-        }
-    }]);
-
-    example.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
-
-        $scope.uploadFile = function () {
-            var file = $scope.myFile;
-            console.log('file is ');
-            console.dir(file);
-            var uploadUrl = "/uploadfile";
-            fileUpload.uploadFileToUrl(file, uploadUrl);
-        };
-
-    }]);
 
 
-    example.controller('MasterController', function ($scope, $http) // serwis $http umożliwia zapytania ajax
-    {
-        var self = this;
-        $scope.registerForm = true;
-        $scope.loginForm = true;
-        $scope.listUsers = true;
-        $scope.upLoadForm = true;
-        //this.users = [];
-        this.user = {};
-//        this.listFiles = [];
-
-        this.addUser = function () {
-
-
-            var ajax = $http.post('addUser', this.user);
-            this.user = {};
-
-            ajax.success(function (data) {
-                if (data.result) {
-
-                    $scope.registerForm = true;
-                }
-            });
-        };
-
-        this.takeUsers = function () {
-            var ajax = $http.get('showUsers');
-
-            ajax.success(function (data) {
-                if (data.result)
-                    self.users = data.list;
-            });
-        };
-
-        this.showFilesList = function () {
-
-            self.showFiles();
-            var ajax = $http.get('/showfiles');
-
-            ajax.success(function (data) {
-                if (data.result) {
-                    self.listFiles = data.fileList;
-//                    $scope.registerForm = true;
-
-                }
-            });
-        };
-
-        this.downloadFile = function (uniqueMark) {
-
-            self.hideAll();
-            window.open('files/' + uniqueMark, '_blank');
-        };
-
-        this.login = function () {
-            this.hideAll();
-            $scope.loginForm = false;
-        };
-
-        this.register = function () {
-            this.hideAll();
-            $scope.registerForm = false;
-        };
-
-        this.showUsers = function () {
-            this.hideAll();
-            this.takeUsers();
-            $scope.listUsers = false;
-        };
-
-        this.showUpLoadForm = function () {
-            this.hideAll();
-            $scope.upLoadForm = false;
-        };
-
-        this.showFiles = function () {
-            this.hideAll();
-            $scope.listFiles = false;
-        };
-
-        this.hideAll = function () {
-            $scope.loginForm = true;
-            $scope.registerForm = true;
-            $scope.listUsers = true;
-            $scope.listFiles = true;
-            $scope.upLoadForm = true;
-
-            this.user = {};
-        }
-    });
-
-</script>
-
-
-<div>
-    <label ng-click='c.login()'>login</label> |
-    <label ng-click='c.register()'>register</label> |
-    <label ng-click='c.showUsers()'>show users list</label> |
-    <label ng-click='c.showUpLoadForm()'>show upload form</label> |
-    <label ng-click='c.showFilesList()'>show files list</label> |
-</div>
-<br/>
-
-<form ng-hide="registerForm" ng-submit="c.addUser()">
-    Login: <input ng-model="c.user.login" type="text"/><br/>
-    email: <input ng-model="c.user.email" type="text"/><br/>
-    password: <input ng-model="c.user.password" type="password"/><br/>
-    <input type="submit" value="Add"/>
-</form>
-
-<form ng-hide="loginForm" ng-submit="c.loginUser()">
-    Login: <input ng-model="c.user.login" type="text"/><br/>
-    password: <input ng-model="c.user.password" type="password"/><br/>
-    <input type="submit" value="log"/>
-</form>
-
-
-<div ng-hide="listUsers">
-    Count: {{ c.users.length }}<br/>
-    <div ng-repeat="u in c.users" style="margin: 2px; background: #c0b1b1;">
-        login: {{ u.login }}<br/>
-        email: {{ u.email}}<br/>
-        <!--<button ng-click="c.removeUser( u.id )">Remove</button>-->
-    </div>
+<body>
+<div class="container">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li data-ng-class="getClass('/addUserForm')"><a href="#/addUserForm">Register
+                    </a></li>
+                    <li data-ng-class="getClass('/logUserForm')"><a href="#/logUserForm">Log
+                    </a></li>
+                    <li data-ng-class="getClass('/showUser')"><a href="#/showUser">Show users list</a></li>
+                    </li>
+                    <li data-ng-class="getClass('/showFiles')"><a href="#/showFiles">Show files list</a></li>
+                    </li>
+                    <li data-ng-class="getClass('/uploadFile')"><a href="#/uploadFile">Upload</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div data-ng-view=""></div>
 </div>
 
-<div ng-hide="listFiles">
-    Count: {{ c.listFiles.length }}<br/>
-    <div ng-repeat="u in c.listFiles" style="margin: 2px; background: #c0b1b1;">
-        Nazwa: <label ng-click="c.downloadFile(u.uniqueMarks)"> {{ u.fileName }} </label><br/>
-        <!--<button ng-click="c.removeUser( u.id )">Remove</button>-->
-    </div>
-</div>
+<!--load libs -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular-route.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
 
-<div ng-hide="upLoadForm" ng-controller="myCtrl as m">
-    <form>
-        <input type="file" file-model="myFile"/>
-        <button ng-click="uploadFile()">upload me</button>
-    </form>
-</div>
+<!--my primary script  -->
+<script src="app/mdl.js"></script>
+<script src="app/rout.js"></script>
+
+<!--my common script-->
+<script src="app/common/directives/ng-file-model.js"></script>
+<script src="app/common/services/file-upload.js"></script>
+
+<!--my core script-->
+<script src="app/core/users/add-user-ctrl.js"></script>
+<script src="app/core/users/log-user-ctrl.js"></script>
+<script src="app/core/users/show-users-ctrl.js"></script>
+<script src="app/core/files/show-files-ctrl.js"></script>
+<script src="app/core/files/upload-file-ctrl.js"></script>
+
+
+
+
 </body>
+
+
 </html>
