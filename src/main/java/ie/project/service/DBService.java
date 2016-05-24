@@ -45,6 +45,8 @@ public class DBService {
         user1.setEmail(new EmailAddress("john_zorn@example.mail.com"));
 
         userRepository.save(user1);
+
+        saveFile("every day", "files/4ueirumtffkjng1jevery day", "", "4ueirumtffkjng1j");
     }
 
     public User saveUser(User user) {

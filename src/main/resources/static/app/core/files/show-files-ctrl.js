@@ -21,7 +21,7 @@ app.controller('showFilesCtrl', function ($scope, $http) {
 
     this.downloadFile = function (uniqueMark) {
         console.log("here");
-        window.open('files/' + uniqueMark, '_blank');
+        window.open('files/' + uniqueMark, 'downloadFrame');
     };
 
 });
