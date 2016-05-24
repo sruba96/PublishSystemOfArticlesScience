@@ -1,7 +1,7 @@
-<div data-ng-controller="showFilesCtrl as c">
+<div ng-controller="showFilesCtrl as c">
     Count files: {{ c.filesList.length }}<br/>
     <div ng-repeat="u in c.filesList" style="margin: 2px; background: #c0b1b1;">
-        Nazwa: <label data-ng-click="c.downloadFile(u.uniqueMarks)"> {{ u.fileName }} </label><br/>
+        Nazwa: <label ng-click="c.downloadFile(u.uniqueMarks)"> {{ u.fileName }} </label><br/>
         <!--<button ng-click="c.removeUser( u.id )">Remove</button>-->
     </div>
 </div>

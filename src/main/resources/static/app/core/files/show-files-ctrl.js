@@ -20,6 +20,7 @@ app.controller('showFilesCtrl', function ($scope, $http) {
     self.showFiles();
 
     $scope.downloadFile = function (uniqueMark) {
+        console.log("here");
         window.open('files/' + uniqueMark, '_blank');
     };
 
