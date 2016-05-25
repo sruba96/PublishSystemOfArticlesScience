@@ -53,6 +53,8 @@ public class DBService {
         return userRepository.save(user);
     }
 
+
+
     public List<UserStatus> findAllUsers() {
 
         List<User> users = userRepository.findAll();
