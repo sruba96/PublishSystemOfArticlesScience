@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -81,5 +82,18 @@ public class User extends AbstractEntity {
 
     public void setEmail(EmailAddress email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                ", password=" + Arrays.toString(password) +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email=" + email +
+                ", projects=" + projects +
+                ", files=" + files +
+                '}';
     }
 }

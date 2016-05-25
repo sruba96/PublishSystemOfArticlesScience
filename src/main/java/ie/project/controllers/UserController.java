@@ -6,6 +6,7 @@ import ie.project.jacksonmapping.UserStatus;
 import ie.project.responses.AddUserResponse;
 import ie.project.responses.ShowUsersResponse;
 import ie.project.service.DBService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,15 +19,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
+    private static final Logger logger = Logger.getLogger(UserController.class);
+
     @Autowired
     DBService dbService;
 
     @RequestMapping(value = {"/addUser"}, method = RequestMethod.POST)
     public AddUserResponse addUser(@RequestBody UserStatus userStatus) {
         AddUserResponse addUserResponse = new AddUserResponse();
-        User user = prepareUser(userStatus);
+        User user = dbService.findUserByEmailOrLogin(
+                userStatus.getEmail(), userStatus.getLogin());
+
+        if(user != null)
+        {
+            logger.info("Email or login already exist ");
+            addUserResponse.setMessage("Email or login already exist");
+            return addUserResponse;
+        }
+
+        user = prepareUser(userStatus);
         dbService.saveUser(user);
         addUserResponse.setResult(true);
+        logger.info("User registered");
         return addUserResponse;
     }
 

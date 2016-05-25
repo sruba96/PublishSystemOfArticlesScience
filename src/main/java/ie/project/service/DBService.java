@@ -53,7 +53,12 @@ public class DBService {
         return userRepository.save(user);
     }
 
+    public User findUserByEmailOrLogin(String email, String login) {
+        EmailAddress emailAddress = new EmailAddress(email.trim());
 
+        User user = userRepository.findByEmailOrLogin(emailAddress, login);
+        return user;
+    }
 
     public List<UserStatus> findAllUsers() {
 
@@ -83,7 +88,7 @@ public class DBService {
         return fileMapList;
     }
 
-    public boolean saveFile(String filename, String filepath , String extension , String uniqueMarks) {
+    public boolean saveFile(String filename, String filepath, String extension, String uniqueMarks) {
 
         File file = new File();
         file.setName(filename);
@@ -96,7 +101,7 @@ public class DBService {
         return false;
     }
 
-    public File findFile(String uniqueMarks){
+    public File findFile(String uniqueMarks) {
         return fileRepository.findByUniqueMarks(uniqueMarks);
     }
 }
