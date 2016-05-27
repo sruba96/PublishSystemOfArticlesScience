@@ -1,4 +1,4 @@
-<form  ng-submit="addUser()">
+<form  ng-submit="addUser()" data-ng-controller="addUserCtrl as c">
     Login: <input ng-model="c.user.login" type="text"/><br/>
     email: <input ng-model="c.user.email" type="text"/><br/>
     password: <input ng-model="c.user.password" type="password"/><br/>

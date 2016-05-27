@@ -4,13 +4,16 @@
 app.controller('addUserCtrl', function ($scope, $http) // serwis $http umożliwia zapytania ajax
 {
 
-    var self = this;
+
 
     this.user = {};
 
     $scope.addUser = function () {
 
         // this.user = {};
+        console.log(this.user);
+        console.log($scope.user);
+
         var ajax = $http.post('addUser', this.user);
         
         //*
