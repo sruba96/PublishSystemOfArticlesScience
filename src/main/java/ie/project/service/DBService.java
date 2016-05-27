@@ -1,5 +1,6 @@
 package ie.project.service;
 
+import ie.project.configuration.AppConfiguration;
 import ie.project.domain.EmailAddress;
 import ie.project.domain.File;
 import ie.project.domain.User;
@@ -7,6 +8,7 @@ import ie.project.jacksonmapping.FileMap;
 import ie.project.jacksonmapping.UserStatus;
 import ie.project.repositories.FileRepository;
 import ie.project.repositories.UserRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ import java.util.List;
 @Transactional
 @Service
 public class DBService {
+
+    private static final Logger logger = Logger.getLogger(AppConfiguration.class);
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -31,10 +36,10 @@ public class DBService {
         User user = new User();
         user.setFirstName("Wacek");
         user.setLastName("Lolek");
-        user.setLogin("wacuuuch");
+        user.setLogin("wacek");
         char[] passwd = {'a', 'b', 'c'};
         user.setPassword(passwd);
-        String email = "robert@example.mail.com";
+        String email = "wacek@example.mail.com";
         user.setEmail(new EmailAddress(email));
         userRepository.save(user);
         User user1 = new User();
@@ -51,6 +56,21 @@ public class DBService {
 
     public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    public User findUserByEmailOrLogin(String emailOrLogin) {
+        User user;
+        EmailAddress emailAddress;
+        try {
+            emailAddress = new EmailAddress(emailOrLogin.trim());
+            user = userRepository.findByEmail(emailAddress);
+            logger.info("Email or login - find by email address");
+        } catch (Exception e) {
+            logger.info("Email or login - find by login");
+            user = userRepository.findByLogin(emailOrLogin);
+        }
+        return user;
+
     }
 
     public User findUserByEmailOrLogin(String email, String login) {

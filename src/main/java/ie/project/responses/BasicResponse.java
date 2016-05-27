@@ -10,6 +10,23 @@ public class BasicResponse {
     private String message;
 
 
+    public BasicResponse() {
+        this.result = false;
+    }
+
+    public BasicResponse(boolean result) {
+        this.result = result;
+    }
+
+    public BasicResponse(String message) {
+        this.message = message;
+    }
+
+    public BasicResponse(boolean result, String message) {
+        this.result = result;
+        this.message = message;
+    }
+
     public boolean isResult() {
         return result;
     }

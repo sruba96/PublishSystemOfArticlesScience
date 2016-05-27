@@ -3,14 +3,15 @@
  */
 app.controller('logUserCtrl', function ($scope, $http)
 {
+    this.user = {};
     $scope.logUser = function () {
 
-        var ajax = $http.post('addUser', this.user);
-        this.user = {};
+        console.log(this.user);
+        var ajax = $http.post('logging', this.user);
 
         ajax.success(function (data) {
             if (data.result) {
-                $scope.registerForm = true;
+                console.log("good you are log in");
             }
         });
         console.log("Here will be login");
