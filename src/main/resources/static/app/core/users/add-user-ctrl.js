@@ -16,15 +16,12 @@ app.controller('addUserCtrl', function ($scope, $http) // serwis $http umożliwi
 
         var ajax = $http.post('addUser', this.user);
         
-        //*
-        // check something*/
         console.log("function is working");
 
         ajax.success(function (data) {
             if (data.result) {
                 console.log("Response is working");
 
-                $scope.registerForm = true;
             }
         });
     };
