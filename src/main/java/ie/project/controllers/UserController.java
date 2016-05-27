@@ -24,6 +24,7 @@ public class UserController {
     @RequestMapping(value = {"/addUser"}, method = RequestMethod.POST)
     public AddUserResponse addUser(@RequestBody UserStatus userStatus) {
         AddUserResponse addUserResponse = new AddUserResponse();
+//        System.out.println(userStatus.toString());
         User user = prepareUser(userStatus);
         dbService.saveUser(user);
         addUserResponse.setResult(true);
