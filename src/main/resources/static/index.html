@@ -14,14 +14,11 @@
 
 
 <body>
-<div class="container">
-    <nav class="navbar navbar-default" role="navigation">
+<div class="container" >
+    <nav class="navbar navbar-default" role="navigation" data-ng-controller="homeNovCtrl">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li data-ng-class="getClass('/addUserForm')"><a href="/addUserForm">Register
-                    </a></li>
-                    <li data-ng-class="getClass('/logUserForm')"><a href="/logUserForm">Log
+                <ul class="nav navbar-nav" >
                     </a></li>
                     <li data-ng-class="getClass('/showUser')"><a href="/showUser">Show users list</a></li>
                     </li>
@@ -29,14 +26,19 @@
                     </li>
                     <li data-ng-class="getClass('/uploadFile')"><a href="/uploadFile">Upload</a></li>
                 </ul>
-            </div>
+                <ul class="nav navbar-nav" >
+                    <li data-ng-class="getClass('/addUserForm')"><a href="/addUserForm">Register
+                    </a></li>
+                    <li data-ng-class="getClass('/logUserForm')"><a href="/logUserForm">Log
+                    </a></li>
+                </ul>
         </div>
     </nav>
-    <div data-ng-view=""></div>
 </div>
 
+
 <!--downloadFile function is referening to this frame-->
-<iframe id="downloadFrame" name="downloadFrame" ></iframe>
+<iframe id="downloadFrame" name="downloadFrame"></iframe>
 
 <!--load libs -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.js"></script>
@@ -61,8 +63,6 @@
 <script src="app/core/users/show-users-ctrl.js"></script>
 <script src="app/core/files/show-files-ctrl.js"></script>
 <script src="app/core/files/upload-file-ctrl.js"></script>
-
-
 
 
 </body>
