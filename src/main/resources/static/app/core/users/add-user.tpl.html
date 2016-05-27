@@ -1,6 +1,6 @@
-<form  ng-submit="addUser()">
-    Login: <input ng-model="c.user.login" type="text"/><br/>
-    email: <input ng-model="c.user.email" type="text"/><br/>
-    password: <input ng-model="c.user.password" type="password"/><br/>
+<form  ng-submit="addUser()" data-ng-controller="addUserCtrl">
+    Login: <input ng-model="user.login" type="text"/><br/>
+    email: <input ng-model="user.email" type="text"/><br/>
+    password: <input ng-model="user.password" type="password"/><br/>
     <input type="submit" value="Add"/>
 </form>

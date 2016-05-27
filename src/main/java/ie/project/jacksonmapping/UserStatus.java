@@ -1,5 +1,7 @@
 package ie.project.jacksonmapping;
 
+import java.util.Arrays;
+
 /**
  * Created by pawel on 12.04.16.
  */
@@ -31,5 +33,14 @@ public class UserStatus {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "UserStatus{" +
+                "login='" + login + '\'' +
+                ", password=" + Arrays.toString(password) +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
