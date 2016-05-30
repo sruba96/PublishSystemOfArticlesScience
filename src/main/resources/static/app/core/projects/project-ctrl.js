@@ -3,11 +3,35 @@
  */
 app.controller('project', function ($scope, $http) // serwis $http umożliwia zapytania ajax
 {
-    // this.user = {};
-    $scope.show = false;
+    $scope.label = "New project";
+    var selfS = $scope;
+    var self = this;
+    this.show = true;
+    this.data = {};
 
-    var self = $scope;
-    $scope.change = function () {
-       self.show = !self.show;
+    this.change = function () {
+        console.log(self.show);
+
+        self.show = !self.show;
+
+        if(!self.show)
+            selfS.label = "hide";
+        else
+            selfS.label = "New project";
     };
+
+    this.addProject = function () {
+
+
+        console.log(this.projectData);
+        var ajax = $http.post('addProject', this.data);
+
+        ajax.success(function (data) {
+            if (data.result) {
+                this.change();
+
+            }
+        });
+    };
+
 });

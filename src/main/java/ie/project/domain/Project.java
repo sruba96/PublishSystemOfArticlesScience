@@ -1,5 +1,7 @@
 package ie.project.domain;
 
+import ie.project.jacksonmapping.ProjectMap;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -12,12 +14,32 @@ import java.util.List;
 public class Project extends AbstractEntity {
 
     private String name;
+    private String description;
+    private User owner;
 
     @ManyToMany
     private List<User> users;
 
     @OneToMany(mappedBy = "project")
     private List<File> files;
+
+    public Project() {
+    }
+
+    public Project(String name, String description, User owner) {
+        this.name = name;
+        this.description = description;
+        this.owner = owner;
+
+    }
+
+    public Project(ProjectMap projectMap, User owner) {
+        this.name = projectMap.getName();
+        this.description = projectMap.getDescription();
+        this.owner = owner;
+
+    }
+
 
     public List<User> getUsers() {
         return users;
@@ -35,11 +57,54 @@ public class Project extends AbstractEntity {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     public List<File> getFiles() {
         return files;
     }
 
     public void setFiles(List<File> files) {
         this.files = files;
+    }
+
+    public void addFiles(File file) {
+        files.add(file);
+    }
+
+    public void removeFile(int index) {
+        files.remove(index);
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+    }
+
+    public void removeUser(int index) {
+        users.remove(index);
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", owner=" + owner +
+                ", users=" + users +
+                ", files=" + files +
+                '}';
     }
 }

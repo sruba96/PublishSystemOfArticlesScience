@@ -38,7 +38,8 @@ app.config(function ($routeProvider) {
             })
         .when('/project',
             {
-                templateUrl: "app/core/default/default.html"
+                templateUrl: "app/core/projects/project.tpl.html",
+                controller: "project"
             })
         .when('/myProfile',
             {

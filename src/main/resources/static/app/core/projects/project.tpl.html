@@ -1,18 +1,14 @@
-<!DOCTYPE html  ng-app="app">
-<html>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="project-ctrl" ></script>
-<body>
+<div data-ng-controller="project as c">
+    <p>
+        <button  ng-click="c.change()">{{label}}</button>
+    </p>
 
-<div data-ng-controller="project">
-   <p>
-      <button ng-click="mySwitch()">Click Me!</button>
-   </p>
+    <div ng-hide="c.show">
+        <form  ng-submit="c.addProject()" >
+            Name: <input ng-model="c.data.name" type="text"/><br/>
+            Description:<br><textarea style="width:400px; height: 200px;" ng-model="c.data.descritprion"></textarea><br>
+            <input type="submit" value="Add project"/>
+        </form>
+    </div>
 
-   <div ng-hide="show">
-      Lol
-   </div>
 </div>
-
-</body>
-</html>

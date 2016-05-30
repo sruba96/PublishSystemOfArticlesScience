@@ -1,0 +1,60 @@
+<!DOCTYPE html  >
+<html ng-app="myApp">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<!--<script src="project-ctrl" ></script>-->
+<body >
+<script type="text/javascript">
+
+    var example = angular.module('myApp', []); // 'example' jest powiązany z ng-app="example"
+
+
+    console.log("lol1");
+
+
+    example.controller('MasterController', function ($scope, $http) // serwis $http umożliwia zapytania ajax
+    {
+        $scope.label = "New project";
+        var selfS = $scope;
+        var self = this;
+        this.show = true;
+        self.proj = {};
+
+        this.change = function () {
+            console.log(self.show);
+
+            self.show = !self.show;
+
+            if(!self.show)
+                    selfS.label = "hide";
+            else
+                selfS.label = "New project";
+        };
+
+        this.addProject = function () {
+            this.change();
+            console.log(self.data);
+        };
+
+    });
+</script>
+
+
+
+
+<div data-ng-controller="MasterController as c">
+    <p>
+        <button  ng-click="c.change()">{{label}}</button>
+    </p>
+
+    <div ng-hide="c.show">
+        <form  ng-submit="c.addProject()" >
+            Name: <input ng-model="c.data.name" type="text"/><br/>
+            Description:<br><textarea style="width:400px; height: 200px;" ng-model="c.data.descritprion"></textarea><br>
+            <input type="submit" value="Add project"/>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
