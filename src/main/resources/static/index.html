@@ -14,8 +14,8 @@
 
 
 <body>
-<div class="container">
-    <nav class="navbar navbar-default" role="navigation" data-ng-controller="homeNovCtrl">
+<div class="container" data-ng-controller="homeNovCtrl">
+    <nav class="navbar navbar-default" role="navigation" >
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -26,7 +26,7 @@
                     </li>
                     <li data-ng-class="getClass('/uploadFile')"><a href="#/uploadFile">Upload</a></li>
                 </ul>
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" >
                     <li data-ng-class="getClass('/addUserForm')"><a href="#/addUserForm">Register
                     </a></li>
                     <li data-ng-class="getClass('/logUserForm')"><a href="/#logUserForm">Log
@@ -35,6 +35,7 @@
             </div>
         </div>
     </nav>
+    <div data-ng-view=""></div>
 </div>
 
 
