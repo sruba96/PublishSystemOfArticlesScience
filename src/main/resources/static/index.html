@@ -14,24 +14,25 @@
 
 
 <body>
-<div class="container" >
+<div class="container">
     <nav class="navbar navbar-default" role="navigation" data-ng-controller="homeNovCtrl">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav" >
+                <ul class="nav navbar-nav">
                     </a></li>
-                    <li data-ng-class="getClass('/showUser')"><a href="/showUser">Show users list</a></li>
+                    <li data-ng-class="getClass('/showUser')"><a href="#/showUser">Show users list</a></li>
                     </li>
-                    <li data-ng-class="getClass('/showFiles')"><a href="/showFiles">Show files list</a></li>
+                    <li data-ng-class="getClass('/showFiles')"><a href="#/showFiles">Show files list</a></li>
                     </li>
-                    <li data-ng-class="getClass('/uploadFile')"><a href="/uploadFile">Upload</a></li>
+                    <li data-ng-class="getClass('/uploadFile')"><a href="#/uploadFile">Upload</a></li>
                 </ul>
-                <ul class="nav navbar-nav" >
-                    <li data-ng-class="getClass('/addUserForm')"><a href="/addUserForm">Register
+                <ul class="nav navbar-nav">
+                    <li data-ng-class="getClass('/addUserForm')"><a href="#/addUserForm">Register
                     </a></li>
-                    <li data-ng-class="getClass('/logUserForm')"><a href="/logUserForm">Log
+                    <li data-ng-class="getClass('/logUserForm')"><a href="/#logUserForm">Log
                     </a></li>
                 </ul>
+            </div>
         </div>
     </nav>
 </div>
@@ -63,6 +64,7 @@
 <script src="app/core/users/show-users-ctrl.js"></script>
 <script src="app/core/files/show-files-ctrl.js"></script>
 <script src="app/core/files/upload-file-ctrl.js"></script>
+<script src="app/core/home/home-nov-ctrl.js"></script>
 
 
 </body>
