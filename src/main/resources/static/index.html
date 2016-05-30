@@ -13,8 +13,8 @@
 </head>
 
 
-<body>
-<div class="container" data-ng-controller="homeNovCtrl">
+<body ng-cloak>
+<div class="container" data-ng-controller="logUserCtrl">
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -37,13 +37,12 @@
 
                 <ng-hide ng-hide="invisibleLog">
                     <ul class="nav navbar-nav">
-                        <li>{{login}}
+                        <li data-ng-class="getClass('/myProfile')"><a href="/#myProfile">{{login}}</a>
                         </li>
-                        <li data-ng-class="getClass('/logUserForm')"><a href="/#logUserForm">Log out
+                        <li data-ng-class="getClass('/logOut')"><a href="/#logOut">Log out
                         </a></li>
                     </ul>
                 </ng-hide>
-
 
             </div>
         </div>
