@@ -5,5 +5,5 @@ package ie.project.configuration;
  */
 public class StaticAppConfiguration {
 
-    public static int SESSION_TIME = 30;
+    public static int SESSION_TIME = 30*5;
 }

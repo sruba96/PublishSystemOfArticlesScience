@@ -19,15 +19,12 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    </a></li>
-                    <li data-ng-class="getClass('/showUser')"><a href="#/showUser">Show users list</a></li>
-                    </li>
-                    <li data-ng-class="getClass('/showFiles')"><a href="#/showFiles">Show files list</a></li>
-                    </li>
-                    <li data-ng-class="getClass('/uploadFile')"><a href="#/uploadFile">Upload</a></li>
+
                 </ul>
                 <ng-hide ng-hide="invisible">
                     <ul class="nav navbar-nav">
+                        <li data-ng-class="getClass('/')"><a href="#/">Home
+                        </a></li>
                         <li data-ng-class="getClass('/addUserForm')"><a href="#/addUserForm">Register
                         </a></li>
                         <li data-ng-class="getClass('/logUserForm')"><a href="/#logUserForm">Log
@@ -37,10 +34,11 @@
 
                 <ng-hide ng-hide="invisibleLog">
                     <ul class="nav navbar-nav">
-                        <li data-ng-class="getClass('/myProfile')"><a href="/#myProfile">{{login}}</a>
-                        </li>
-                        <li data-ng-class="getClass('/logOut')"><a href="/#logOut">Log out
-                        </a></li>
+                        <li data-ng-class="getClass('/showUser')"><a href="#/showUser">Show users list</a></li></li>
+                        <li data-ng-class="getClass('/showFiles')"><a href="#/showFiles">Show files list</a></li></li>
+                        <li data-ng-class="getClass('/uploadFile')"><a href="#/uploadFile">Upload</a></li>
+                        <li data-ng-class="getClass('/myProfile')"><a href="#/myProfile">Profile</a></li>
+                        <li data-ng-class="getClass('/')"><a ng-href="#/" ng-click="logout()">Log out</a></li>
                     </ul>
                 </ng-hide>
 

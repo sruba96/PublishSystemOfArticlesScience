@@ -32,6 +32,10 @@ app.config(function ($routeProvider) {
             {
                 templateUrl: "app/core/default/default.html"
             })
+        .when('/logout',
+            {
+                templateUrl: "app/core/default/default.html"
+            })
         .otherwise
         ({
             template: "Error 404!"

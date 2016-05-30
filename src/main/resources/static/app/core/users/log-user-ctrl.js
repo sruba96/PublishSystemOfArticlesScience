@@ -14,7 +14,7 @@
                 ajax.success(function (data) {
                     if (data.result) {
                         console.log("good you are log in");
-                        location.reload("#/");
+                        location.reload("/logout");
                     }
 
                     $scope.checkSession();
@@ -52,5 +52,28 @@
 
             };
             $scope.checkSession();
+
+
+
+            $scope.logout = function () {
+
+                var ajax = $http.post('/logout2');
+
+                console.log("log out process...");
+
+                ajax.success(function (data) {
+                    if (data.result) {
+                        console.log("you are logged out :(");
+                        //self.login = {};
+                        self.logged = false;
+                        self.invisible = false;
+                        self.invisibleLog = true;
+                        location.reload("/logout");
+
+                    }
+                });
+
+            };
+
         });
 })();

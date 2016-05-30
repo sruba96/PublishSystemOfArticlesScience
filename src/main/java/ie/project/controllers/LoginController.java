@@ -74,12 +74,12 @@ public class LoginController {
         }
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @RequestMapping(value = "/logout2", method = RequestMethod.POST)
     public BasicResponse logout(HttpSession httpSession) {
 
         try {
             httpSession.invalidate();
-            sessionData = null;
+            sessionData = new SessionData();
         } catch (IllegalStateException e) {
         }
 

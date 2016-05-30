@@ -1,4 +1,4 @@
-<form ng-submit="logUser()" data-ng-controller="logUserCtrl">
+<form data-ng-class="getClass('/')" ng-href="#/" ng-submit="logUser()" data-ng-controller="logUserCtrl">
     Login: <input ng-model="user.loginOrEmail" type="text"/><br/>
     password: <input ng-model="user.password" type="password"/><br/>
     <input type="submit" value="log"/>
