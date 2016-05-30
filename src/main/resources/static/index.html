@@ -34,9 +34,11 @@
 
                 <ng-hide ng-hide="invisibleLog">
                     <ul class="nav navbar-nav">
-                        <li data-ng-class="getClass('/showUser')"><a href="#/showUser">Show users list</a></li></li>
+                        <li data-ng-class="getClass('/project')"><a href="#/project">Project</a></li></li>
+                        <li data-ng-class="getClass('/selectProject')"><a href="#/selectProject">Select project</a></li></li>
                         <li data-ng-class="getClass('/showFiles')"><a href="#/showFiles">Show files list</a></li></li>
                         <li data-ng-class="getClass('/uploadFile')"><a href="#/uploadFile">Upload</a></li>
+                        <li data-ng-class="getClass('/showUser')"><a href="#/showUser">Invite users</a></li></li>
                         <li data-ng-class="getClass('/myProfile')"><a href="#/myProfile">Profile</a></li>
                         <li data-ng-class="getClass('/')"><a ng-href="#/" ng-click="logout()">Log out</a></li>
                     </ul>

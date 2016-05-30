@@ -36,6 +36,14 @@ app.config(function ($routeProvider) {
             {
                 templateUrl: "app/core/default/default.html"
             })
+        .when('/project',
+            {
+                templateUrl: "app/core/default/default.html"
+            })
+        .when('/myProfile',
+            {
+                templateUrl: "app/core/default/default.html"
+            })
         .otherwise
         ({
             template: "Error 404!"

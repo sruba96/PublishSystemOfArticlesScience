@@ -7,13 +7,17 @@ app.controller('addUserCtrl', function ($scope, $http) // serwis $http umożliwi
 
     $scope.addUser = function () {
 
-        var ajax = $http.post('addUser', this.user);
-        
-        ajax.success(function (data) {
-            if (data.result) {
-                
 
-            }
-        });
+        if (this.user.password == this.user.retype) {
+
+            var ajax = $http.post('addUser', this.user);
+
+            ajax.success(function (data) {
+                if (data.result) {
+
+
+                }
+            });
+        }
     };
 });

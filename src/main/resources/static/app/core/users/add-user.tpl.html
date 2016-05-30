@@ -1,6 +1,9 @@
 <form  ng-submit="addUser()" data-ng-controller="addUserCtrl">
     Login: <input ng-model="user.login" type="text"/><br/>
     email: <input ng-model="user.email" type="text"/><br/>
+    First name: <input ng-model="user.firstName" type="text"/><br/>
+    Last name: <input ng-model="user.lastName" type="text"/><br/>
     password: <input ng-model="user.password" type="password"/><br/>
+    retype: <input ng-model="user.retype" type="password"/><br/>
     <input type="submit" value="Add"/>
 </form>
