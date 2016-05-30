@@ -14,6 +14,5 @@ app.controller('logUserCtrl', function ($scope, $http)
                 console.log("good you are log in");
             }
         });
-        console.log("Here will be login");
     };
 });

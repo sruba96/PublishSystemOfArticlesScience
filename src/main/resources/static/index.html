@@ -15,7 +15,7 @@
 
 <body>
 <div class="container" data-ng-controller="homeNovCtrl">
-    <nav class="navbar navbar-default" role="navigation" >
+    <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -26,12 +26,25 @@
                     </li>
                     <li data-ng-class="getClass('/uploadFile')"><a href="#/uploadFile">Upload</a></li>
                 </ul>
-                <ul class="nav navbar-nav" >
-                    <li data-ng-class="getClass('/addUserForm')"><a href="#/addUserForm">Register
-                    </a></li>
-                    <li data-ng-class="getClass('/logUserForm')"><a href="/#logUserForm">Log
-                    </a></li>
-                </ul>
+                <ng-hide ng-hide="invisible">
+                    <ul class="nav navbar-nav">
+                        <li data-ng-class="getClass('/addUserForm')"><a href="#/addUserForm">Register
+                        </a></li>
+                        <li data-ng-class="getClass('/logUserForm')"><a href="/#logUserForm">Log
+                        </a></li>
+                    </ul>
+                </ng-hide>
+
+                <ng-hide ng-hide="invisibleLog">
+                    <ul class="nav navbar-nav">
+                        <li>{{login}}
+                        </li>
+                        <li data-ng-class="getClass('/logUserForm')"><a href="/#logUserForm">Log out
+                        </a></li>
+                    </ul>
+                </ng-hide>
+
+
             </div>
         </div>
     </nav>
@@ -58,6 +71,7 @@
 <!--my common script-->
 <script src="app/common/directives/ng-file-model.js"></script>
 <script src="app/common/services/file-upload.js"></script>
+<script src="app/common/services/login-session-service.js"></script>
 
 <!--my core script-->
 <script src="app/core/users/add-user-ctrl.js"></script>

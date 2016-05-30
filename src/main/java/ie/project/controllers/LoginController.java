@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 public class LoginController {
 
-    private static final Logger logger = Logger.getLogger(UserController.class);
+    private static final Logger logger = Logger.getLogger(LoginController.class);
 
     @Autowired
     DBService dbService;
@@ -61,7 +61,7 @@ public class LoginController {
                 logger.info("Session is active");
                 if (!sessionData.isEmailSetted())
                     sessionData = (SessionData) httpSession.getAttribute(httpSession.getId());
-                return new BasicResponse(true, "Session is active");
+                return new BasicResponse(true, sessionData.getEmail());
             } else {
                 //not logged
                 logger.info("User not logged");
