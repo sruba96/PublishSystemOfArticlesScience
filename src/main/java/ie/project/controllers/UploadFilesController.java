@@ -1,5 +1,7 @@
 package ie.project.controllers;
 
+import ie.project.configuration.SessionData;
+import ie.project.domain.Project;
 import ie.project.service.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,13 +34,19 @@ public class UploadFilesController {
     @Autowired
     DBService dbService;
 
+    @Autowired
+    SessionData sessionData;
+
     @RequestMapping(value = "/uploadfile", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> uploadFile(
             @RequestParam("file") MultipartFile uploadfile) {
 
+
         try {
             saveFile(uploadfile);
+            if (!sessionData.isProjectId())
+                throw new RuntimeException("You must choose project");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -48,6 +56,7 @@ public class UploadFilesController {
     } // method uploadFile
 
     private void saveFile(@RequestParam("file") MultipartFile uploadfile) throws IOException {
+
 
         // Get the filename and build the local file path (be sure that the
         // application have write permissions on such directory) GG - question
@@ -64,7 +73,14 @@ public class UploadFilesController {
         stream.write(uploadfile.getBytes());
         stream.close();
 
-        dbService.saveFile(uploadfile.getOriginalFilename(), filepath, extension , uniqueMarks);
+        ie.project.domain.File file = new ie.project.domain.File(uploadfile.getOriginalFilename(), filepath, extension, uniqueMarks);
+        Project project = dbService.findProjectById(sessionData.getProjectId());
+
+        project.addFiles(file);
+        dbService.saveFile(file);
+
+        // i need update
+//        dbService.saveFile(uploadfile.getOriginalFilename(), filepath, extension, uniqueMarks);
     }
 
     public String takeUnique() {

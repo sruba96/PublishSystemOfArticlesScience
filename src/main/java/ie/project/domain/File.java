@@ -22,6 +22,16 @@ public class File extends AbstractEntity {
     @ManyToOne
     Project project;
 
+    public File() {
+    }
+
+    public File(String name, String source, String extension, String uniqueMarks) {
+        this.name = name;
+        this.source = source;
+        this.extension = extension;
+        this.uniqueMarks = uniqueMarks;
+    }
+
     public String getName() {
         return name;
     }

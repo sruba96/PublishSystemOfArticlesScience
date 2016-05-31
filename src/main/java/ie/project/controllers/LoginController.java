@@ -80,7 +80,7 @@ public class LoginController {
 
         try {
             httpSession.invalidate();
-            sessionData = new SessionData();
+//            sessionData = new SessionData();
         } catch (IllegalStateException e) {
         }
 

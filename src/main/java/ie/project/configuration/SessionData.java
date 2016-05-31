@@ -18,7 +18,7 @@ public class SessionData {
     private final Date time = Calendar.getInstance().getTime();
     private String login;
     private Long projectId;
-
+    private boolean isProjectId;
     public SessionData() {
     }
 
@@ -26,7 +26,13 @@ public class SessionData {
         this.email = email;
     }
 
+    public boolean isProjectId() {
+        return isProjectId;
+    }
 
+    public void setProjectId(boolean projectId) {
+        isProjectId = projectId;
+    }
 
     public Date getTime() {
         return time;

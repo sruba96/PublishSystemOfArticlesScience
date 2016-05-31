@@ -178,4 +178,8 @@ public class DBService {
     public List<Project> findProjectByOwner(String owner) {
         return projectRepository.findByOwner(owner);
     }
+
+    public Project findProjectById(Long id){
+        return projectRepository.findById(id);
+    }
 }
