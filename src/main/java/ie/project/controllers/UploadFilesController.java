@@ -42,8 +42,6 @@ public class UploadFilesController {
     public ResponseEntity<?> uploadFile(
             @RequestParam("file") MultipartFile uploadfile/*,
             @RequestParam("description") String description*/) {
-
-
         try {
             saveFile(uploadfile/*description*/);
             if (!sessionData.isProjectId())
