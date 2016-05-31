@@ -17,7 +17,5 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     Project findById(Long id);
 
-    @Modifying
-    @Query("update User u set u.firstname = ?1, u.lastname = ?2 where u.id = ?3")
-    void updateProject(String firstname, String lastname, Integer userId);
+
 }

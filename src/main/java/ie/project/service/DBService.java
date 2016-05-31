@@ -64,8 +64,6 @@ public class DBService {
         file.setSource("files/4ueirumtffkjng1jevery day");
 
 
-
-
         Project project = new Project();
         project.setName("Wykuwanie");
         project.setOwner("wacek");
@@ -125,7 +123,6 @@ public class DBService {
     }
 
 
-
     public List<FileMap> findAllFilesFromProject(Long id) {
 
         Project project = projectRepository.findById(id);
@@ -142,13 +139,14 @@ public class DBService {
         return fileMapList;
     }
 
-    public boolean saveFile(String filename, String filepath, String extension, String uniqueMarks) {
+    public boolean saveFile(String filename, String filepath, String extension, String uniqueMarks, String ownerLogin) {
 
         File file = new File();
         file.setName(filename);
         file.setSource(filepath);
         file.setExtension(extension);
         file.setUniqueMarks(uniqueMarks);
+        file.setOwnerLogin(ownerLogin);
 
         if (fileRepository.save(file) != null)
             return true;
@@ -175,11 +173,18 @@ public class DBService {
         return false;
     }
 
+    public boolean saveProject(Project project) {
+
+        if (projectRepository.save(project) != null)
+            return true;
+        return false;
+    }
+
     public List<Project> findProjectByOwner(String owner) {
         return projectRepository.findByOwner(owner);
     }
 
-    public Project findProjectById(Long id){
+    public Project findProjectById(Long id) {
         return projectRepository.findById(id);
     }
 }

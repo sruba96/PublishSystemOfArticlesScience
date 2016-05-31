@@ -14,6 +14,8 @@ public class File extends AbstractEntity {
     private String source;
     private String extension;
     private String uniqueMarks;
+    private String ownerLogin;
+    private String description;
 //    private Data data;
 
     @ManyToOne
@@ -25,11 +27,29 @@ public class File extends AbstractEntity {
     public File() {
     }
 
-    public File(String name, String source, String extension, String uniqueMarks) {
+    public File(String name, String source, String extension, String uniqueMarks, String ownerLogin, String description) {
         this.name = name;
         this.source = source;
         this.extension = extension;
         this.uniqueMarks = uniqueMarks;
+        this.ownerLogin = ownerLogin;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getOwnerLogin() {
+        return ownerLogin;
+    }
+
+    public void setOwnerLogin(String ownerLogin) {
+        this.ownerLogin = ownerLogin;
     }
 
     public String getName() {

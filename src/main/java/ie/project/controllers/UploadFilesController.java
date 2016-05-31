@@ -40,11 +40,12 @@ public class UploadFilesController {
     @RequestMapping(value = "/uploadfile", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> uploadFile(
-            @RequestParam("file") MultipartFile uploadfile) {
+            @RequestParam("file") MultipartFile uploadfile,
+            @RequestParam("description") String description) {
 
 
         try {
-            saveFile(uploadfile);
+            saveFile(uploadfile, description);
             if (!sessionData.isProjectId())
                 throw new RuntimeException("You must choose project");
         } catch (Exception e) {
@@ -55,7 +56,8 @@ public class UploadFilesController {
         return new ResponseEntity<>(HttpStatus.OK);
     } // method uploadFile
 
-    private void saveFile(@RequestParam("file") MultipartFile uploadfile) throws IOException {
+    private void saveFile(@RequestParam("file") MultipartFile uploadfile,
+                          @RequestParam("description") String description) throws IOException {
 
 
         // Get the filename and build the local file path (be sure that the
@@ -73,12 +75,13 @@ public class UploadFilesController {
         stream.write(uploadfile.getBytes());
         stream.close();
 
-        ie.project.domain.File file = new ie.project.domain.File(uploadfile.getOriginalFilename(), filepath, extension, uniqueMarks);
+        ie.project.domain.File file = new ie.project.domain.File(uploadfile.getOriginalFilename(),
+                filepath, extension, uniqueMarks, sessionData.getLogin(), description);
         Project project = dbService.findProjectById(sessionData.getProjectId());
 
         project.addFiles(file);
         dbService.saveFile(file);
-
+        dbService.saveProject(project);
         // i need update
 //        dbService.saveFile(uploadfile.getOriginalFilename(), filepath, extension, uniqueMarks);
     }
