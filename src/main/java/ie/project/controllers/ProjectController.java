@@ -1,6 +1,7 @@
 package ie.project.controllers;
 
 import ie.project.configuration.SessionData;
+import ie.project.domain.Project;
 import ie.project.domain.User;
 import ie.project.jacksonmapping.ProjectMap;
 import ie.project.jacksonmapping.UserStatus;
@@ -12,6 +13,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
@@ -52,7 +56,17 @@ public class ProjectController {
     public ShowProjectsResponse showProject() {
 
         ShowProjectsResponse showProjectsResponse = new ShowProjectsResponse();
-        showProjectsResponse.setList(dbService.findProjectByOwner(sessionData.getLogin()));
+        List<Project> projects = dbService.findProjectByOwner(sessionData.getLogin());
+//        ProjectMap projectMap = new ProjectMap(project.getName(), project.getDescription());
+        List<ProjectMap> projectMapsList = new ArrayList<ProjectMap>();
+
+
+        for (Project project : projects) {
+            ProjectMap projectMap = new ProjectMap(project.getName(), project.getDescription(), project.getId());
+            projectMapsList.add(projectMap);
+        }
+
+        showProjectsResponse.setList(projectMapsList);
         showProjectsResponse.setResult(true);
 
         return showProjectsResponse;

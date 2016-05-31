@@ -31,7 +31,8 @@
 
             var self = $scope;
 
-            $scope.login = "";
+            $scope.login = "wacek";
+            $scope.password = "abc";
 
             $scope.checkSession = function () {
 

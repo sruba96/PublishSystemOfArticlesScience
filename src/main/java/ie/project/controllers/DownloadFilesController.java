@@ -1,9 +1,12 @@
 package ie.project.controllers;
 
+import ie.project.configuration.SessionData;
 import ie.project.domain.File;
+import ie.project.responses.BasicResponse;
 import ie.project.responses.ShowFileResponse;
 import ie.project.service.DBService;
 
+import org.apache.log4j.Logger;
 import org.h2.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,15 +26,30 @@ import java.io.InputStream;
 @Controller
 public class DownloadFilesController {
 
+    private static final Logger logger = Logger.getLogger(DownloadFilesController.class);
+
+
     @Autowired
     DBService dbService;
 
-    @RequestMapping(value = "/showfiles" , method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
+    @Autowired
+    SessionData sessionData;
+
+    @RequestMapping(value = "/showfiles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ShowFileResponse filesList(){
+    public ShowFileResponse filesList() {
+        logger.info("showFiles from project");
         ShowFileResponse showFileResponse = new ShowFileResponse();
-        showFileResponse.setFileList(dbService.findAllFiles());
-        showFileResponse.setResult(true);
+
+        if (!sessionData.isEmailSetted()) {
+            showFileResponse.setResult(false);
+            logger.info("you must be logged");
+
+        } else {
+            showFileResponse.setFileList(dbService.findAllFilesFromProject(sessionData.getProjectId()));
+            showFileResponse.setResult(true);
+            logger.info("files found");
+        }
         return showFileResponse;
     }
 

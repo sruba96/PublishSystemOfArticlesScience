@@ -63,7 +63,7 @@ public class DBService {
         file.setName("every day");
         file.setSource("files/4ueirumtffkjng1jevery day");
 
-        saveFile(file);
+
 
 
         Project project = new Project();
@@ -72,7 +72,7 @@ public class DBService {
         project.setDescription("bardzo fajny artykuł, na temat wykuwania stali");
         project.addUser(user1);
         project.addFiles(file);
-
+        fileRepository.save(file);
         projectRepository.save(project);
 
         project = new Project();
@@ -124,9 +124,13 @@ public class DBService {
         return userStatusList;
     }
 
-    public List<FileMap> findAllFiles() {
 
-        List<File> fileList = fileRepository.findAll();
+
+    public List<FileMap> findAllFilesFromProject(Long id) {
+
+        Project project = projectRepository.findById(id);
+        List<File> fileList = project.getFiles();
+
         List<FileMap> fileMapList = new ArrayList<>();
         for (File f : fileList) {
 

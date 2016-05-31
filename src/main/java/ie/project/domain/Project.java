@@ -2,6 +2,7 @@ package ie.project.domain;
 
 import ie.project.jacksonmapping.ProjectMap;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 public class Project extends AbstractEntity {
 
+    @Column(unique = true)
     private String name;
     private String description;
     private String owner;
@@ -21,7 +23,7 @@ public class Project extends AbstractEntity {
     @ManyToMany
     private List<User> users = new ArrayList<User>();
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany
     private List<File> files = new ArrayList<File>();
 
     public Project() {

@@ -4,6 +4,8 @@ import ie.project.domain.File;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by pawel on 11.04.16.
  */
@@ -11,4 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface FileRepository extends JpaRepository<File, Long> {
 
     File findByUniqueMarks(String uniqueMarks);
+
+
 }

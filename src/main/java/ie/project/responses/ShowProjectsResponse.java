@@ -1,6 +1,7 @@
 package ie.project.responses;
 
 import ie.project.domain.Project;
+import ie.project.jacksonmapping.ProjectMap;
 
 import java.util.List;
 
@@ -9,16 +10,16 @@ import java.util.List;
  */
 public class ShowProjectsResponse extends BasicResponse {
 
-    private List<Project> list;
+    private List<ProjectMap> list;
 
     public ShowProjectsResponse() {
     }
 
-    public List<Project> getList() {
+    public List<ProjectMap> getList() {
         return list;
     }
 
-    public void setList(List<Project> list) {
+    public void setList(List<ProjectMap> list) {
         this.list = list;
     }
 }
