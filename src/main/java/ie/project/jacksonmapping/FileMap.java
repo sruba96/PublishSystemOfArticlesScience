@@ -8,15 +8,15 @@ public class FileMap {
     private String fileName;
     private String uniqueMarks;
     private String ownerLogin;
-    private String description;
+//    private String description;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
 
     public String getOwnerLogin() {
         return ownerLogin;
