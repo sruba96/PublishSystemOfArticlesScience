@@ -23,7 +23,7 @@ app.controller('project', function ($scope, $http) // serwis $http umożliwia za
     this.addProject = function () {
 
 
-        console.log(this.projectData);
+        console.log(this.data);
         var ajax = $http.post('addProject', this.data);
 
         ajax.success(function (data) {

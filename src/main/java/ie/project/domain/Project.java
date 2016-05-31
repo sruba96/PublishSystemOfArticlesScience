@@ -15,7 +15,7 @@ public class Project extends AbstractEntity {
 
     private String name;
     private String description;
-    private User owner;
+    private String owner;
 
     @ManyToMany
     private List<User> users;
@@ -26,14 +26,14 @@ public class Project extends AbstractEntity {
     public Project() {
     }
 
-    public Project(String name, String description, User owner) {
+    public Project(String name, String description, String owner) {
         this.name = name;
         this.description = description;
         this.owner = owner;
 
     }
 
-    public Project(ProjectMap projectMap, User owner) {
+    public Project(ProjectMap projectMap, String owner) {
         this.name = projectMap.getName();
         this.description = projectMap.getDescription();
         this.owner = owner;
@@ -65,11 +65,11 @@ public class Project extends AbstractEntity {
         this.description = description;
     }
 
-    public User getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 
@@ -96,6 +96,8 @@ public class Project extends AbstractEntity {
     public void removeUser(int index) {
         users.remove(index);
     }
+
+
 
     @Override
     public String toString() {

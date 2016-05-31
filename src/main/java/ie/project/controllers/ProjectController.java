@@ -1,5 +1,6 @@
 package ie.project.controllers;
 
+import ie.project.configuration.SessionData;
 import ie.project.domain.User;
 import ie.project.jacksonmapping.ProjectMap;
 import ie.project.jacksonmapping.UserStatus;
@@ -24,13 +25,26 @@ public class ProjectController {
     @Autowired
     DBService dbService;
 
+    @Autowired
+    SessionData sessionData;
+
     @RequestMapping(value = {"/addProject"}, method = RequestMethod.POST)
     public BasicResponse addProject(@RequestBody ProjectMap projectMap) {
-        BasicResponse basicResponse = new BasicResponse();
 
+        if (!sessionData.isEmailSetted()) {
+            logger.info("You must be logged");
+            return new BasicResponse("You must be logged");
+        }
+        try {
+            User user = dbService.findUserByEmailOrLogin(sessionData.getLogin());
+            dbService.saveProject(projectMap, user.getLogin());
+        } catch (Exception e) {
+            logger.info("DataBase problem");
+            return new BasicResponse("DataBase problem");
+        }
 
+        return new BasicResponse(true);
 
-        return basicResponse;
     }
 
 

@@ -16,6 +16,7 @@ public class SessionData {
     private String email = null;
     private boolean emailSetted = false;
     private final Date time = Calendar.getInstance().getTime();
+    private String login;
 
     public SessionData() {
     }
@@ -23,6 +24,8 @@ public class SessionData {
     public SessionData(String email) {
         this.email = email;
     }
+
+
 
     public Date getTime() {
         return time;
@@ -36,6 +39,14 @@ public class SessionData {
         if (emailSetted) throw new RuntimeException("Email already setted!");
         this.email = email;
         emailSetted = true;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public int getId() {

@@ -3,10 +3,13 @@ package ie.project.service;
 import ie.project.configuration.AppConfiguration;
 import ie.project.domain.EmailAddress;
 import ie.project.domain.File;
+import ie.project.domain.Project;
 import ie.project.domain.User;
 import ie.project.jacksonmapping.FileMap;
+import ie.project.jacksonmapping.ProjectMap;
 import ie.project.jacksonmapping.UserStatus;
 import ie.project.repositories.FileRepository;
+import ie.project.repositories.ProjectRepository;
 import ie.project.repositories.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,8 @@ public class DBService {
     private UserRepository userRepository;
     @Autowired
     private FileRepository fileRepository;
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @PostConstruct
     public void init() {
@@ -52,6 +57,9 @@ public class DBService {
         userRepository.save(user1);
 
         saveFile("every day", "files/4ueirumtffkjng1jevery day", "", "4ueirumtffkjng1j");
+
+
+
     }
 
     public User saveUser(User user) {
@@ -123,5 +131,14 @@ public class DBService {
 
     public File findFile(String uniqueMarks) {
         return fileRepository.findByUniqueMarks(uniqueMarks);
+    }
+
+
+    public boolean saveProject(ProjectMap projectMap, String user){
+        Project project = new Project(projectMap, user);
+
+        if (projectRepository.save(project) != null)
+            return true;
+        return false;
     }
 }

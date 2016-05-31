@@ -44,6 +44,7 @@ public class LoginController {
         }
 
         sessionData.setEmail(user.getEmail().toString());
+        sessionData.setLogin(user.getLogin().toLowerCase());
         httpSession.setAttribute(httpSession.getId(), sessionData);
         httpSession.setMaxInactiveInterval(StaticAppConfiguration.SESSION_TIME);
 

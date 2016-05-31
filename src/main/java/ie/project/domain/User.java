@@ -1,10 +1,7 @@
 package ie.project.domain;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @Entity
 public class User extends AbstractEntity {
 
+    @Column(unique = true)
     private String login;
     private char[] password;
 
@@ -22,6 +20,7 @@ public class User extends AbstractEntity {
 
     @Column(unique = true)
     private EmailAddress email;
+
     @ManyToMany(mappedBy = "users")
     private List<Project> projects;
 
