@@ -5,6 +5,7 @@ import ie.project.jacksonmapping.ProjectMap;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,10 +19,10 @@ public class Project extends AbstractEntity {
     private String owner;
 
     @ManyToMany
-    private List<User> users;
+    private List<User> users = new ArrayList<User>();
 
     @OneToMany(mappedBy = "project")
-    private List<File> files;
+    private List<File> files = new ArrayList<File>();
 
     public Project() {
     }

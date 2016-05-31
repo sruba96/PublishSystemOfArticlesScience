@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div ng-controller="selectProjectCtrl as c">
 
-</body>
-</html>
+    <div ng-repeat="u in c.projects" style="margin: 2px; background: #c0b1b1;">
+        Name: <label><!--ng-click="c.downloadFile(u.uniqueMarks)"-->  {{ u.name }} </label>
+        <button ng-click="c.select(u.id)">+</button><br/>
+        Description:<br><div>{{u.description}} </div><br>
+    </div>
+</div>

@@ -28,7 +28,7 @@ app.controller('project', function ($scope, $http) // serwis $http umożliwia za
 
         ajax.success(function (data) {
             if (data.result) {
-                this.change();
+                self.change();
 
             }
         });

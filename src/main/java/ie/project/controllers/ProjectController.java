@@ -6,14 +6,15 @@ import ie.project.jacksonmapping.ProjectMap;
 import ie.project.jacksonmapping.UserStatus;
 import ie.project.responses.AddUserResponse;
 import ie.project.responses.BasicResponse;
+import ie.project.responses.ShowProjectsResponse;
 import ie.project.service.DBService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 /**
  * Created by pawel on 31.05.16.
@@ -45,6 +46,40 @@ public class ProjectController {
 
         return new BasicResponse(true);
 
+    }
+
+    @RequestMapping(value = {"/showProject"}, method = RequestMethod.POST)
+    public ShowProjectsResponse showProject() {
+
+        ShowProjectsResponse showProjectsResponse = new ShowProjectsResponse();
+        showProjectsResponse.setList(dbService.findProjectByOwner(sessionData.getLogin()));
+        showProjectsResponse.setResult(true);
+
+        return showProjectsResponse;
+
+    }
+
+/*
+    @RequestMapping(value = {"/show"}, method = RequestMethod.POST)
+    public ShowProjectsResponse showProject() {
+
+        ShowProjectsResponse showProjectsResponse = new ShowProjectsResponse();
+        showProjectsResponse.setList(dbService.findProjectByOwner(sessionData.getLogin()));
+        showProjectsResponse.setResult(true);
+
+        return showProjectsResponse;
+
+    }
+*/
+
+    @RequestMapping(value = {"/chooseProject"}, method = RequestMethod.POST)
+    public BasicResponse chooseProject(@RequestBody Long id) {
+
+        logger.info(id);
+        sessionData.setProjectId(id);
+
+        logger.info("choose project");
+        return new BasicResponse(true);
     }
 
 

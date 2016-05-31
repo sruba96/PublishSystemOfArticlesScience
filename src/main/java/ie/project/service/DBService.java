@@ -56,9 +56,31 @@ public class DBService {
 
         userRepository.save(user1);
 
-        saveFile("every day", "files/4ueirumtffkjng1jevery day", "", "4ueirumtffkjng1j");
+
+        File file = new File();
+        file.setExtension("");
+        file.setUniqueMarks("4ueirumtffkjng1j");
+        file.setName("every day");
+        file.setSource("files/4ueirumtffkjng1jevery day");
+
+        saveFile(file);
 
 
+        Project project = new Project();
+        project.setName("Wykuwanie");
+        project.setOwner("wacek");
+        project.setDescription("bardzo fajny artykuł, na temat wykuwania stali");
+        project.addUser(user1);
+        project.addFiles(file);
+
+        projectRepository.save(project);
+
+        project = new Project();
+        project.setName("manie");
+        project.setOwner("jacek");
+        project.setDescription("bardzo fajny artykuł, na temat wykuwania stali");
+
+        projectRepository.save(project);
 
     }
 
@@ -129,16 +151,27 @@ public class DBService {
         return false;
     }
 
+    public boolean saveFile(File file) {
+
+        if (fileRepository.save(file) != null)
+            return true;
+        return false;
+    }
+
     public File findFile(String uniqueMarks) {
         return fileRepository.findByUniqueMarks(uniqueMarks);
     }
 
 
-    public boolean saveProject(ProjectMap projectMap, String user){
+    public boolean saveProject(ProjectMap projectMap, String user) {
         Project project = new Project(projectMap, user);
 
         if (projectRepository.save(project) != null)
             return true;
         return false;
+    }
+
+    public List<Project> findProjectByOwner(String owner) {
+        return projectRepository.findByOwner(owner);
     }
 }

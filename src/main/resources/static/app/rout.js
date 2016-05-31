@@ -41,6 +41,11 @@ app.config(function ($routeProvider) {
                 templateUrl: "app/core/projects/project.tpl.html",
                 controller: "project"
             })
+        .when('/selectProject',
+            {
+                templateUrl: "app/core/projects/select-project.tpl.html",
+                controller: "selectProjectCtrl"
+            })
         .when('/myProfile',
             {
                 templateUrl: "app/core/default/default.html"

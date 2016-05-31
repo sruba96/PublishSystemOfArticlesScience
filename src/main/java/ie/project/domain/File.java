@@ -2,6 +2,7 @@ package ie.project.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.xml.crypto.Data;
 
 /**
  * Created by pawel on 11.04.16.
@@ -13,6 +14,7 @@ public class File extends AbstractEntity {
     private String source;
     private String extension;
     private String uniqueMarks;
+//    private Data data;
 
     @ManyToOne
     User user;
