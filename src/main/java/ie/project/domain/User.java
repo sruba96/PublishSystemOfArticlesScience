@@ -1,6 +1,8 @@
 package ie.project.domain;
 
 
+import ie.project.jacksonmapping.UserStatus;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
@@ -81,6 +83,16 @@ public class User extends AbstractEntity {
 
     public void setEmail(EmailAddress email) {
         this.email = email;
+    }
+
+    public UserStatus convert(){
+
+        UserStatus userStatus = new UserStatus();
+        userStatus.setLogin(this.getLogin());
+        userStatus.setEmail(this.getEmail().toString());
+        userStatus.setId(this.getId());
+
+        return userStatus;
     }
 
     @Override

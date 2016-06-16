@@ -108,19 +108,39 @@ public class DBService {
         return user;
     }
 
+
+    ///////////////////////////////////////////////////////////////////////////
+    // This code must be changed
+    ///////////////////////////////////////////////////////////////////////////
+    public List<User> findUserToInvite(Long projectId) {
+
+
+        Project project = projectRepository.findById(projectId);
+
+        List<User> all = userRepository.findAll();
+        List<User> userList = project.getUsers();
+        all.removeAll(userList);
+
+
+        return all;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // end
+    ///////////////////////////////////////////////////////////////////////////
+
     public List<UserStatus> findAllUsers() {
 
         List<User> users = userRepository.findAll();
         List<UserStatus> userStatusList = new ArrayList<>();
 
         for (User u : users) {
-            UserStatus userStaus = new UserStatus();
-            userStaus.setLogin(u.getLogin());
-            userStaus.setEmail(u.getEmail().toString());
-            userStatusList.add(userStaus);
+            UserStatus userStaus = u.convert();
         }
         return userStatusList;
     }
+
+
 
 
     public List<FileMap> findAllFilesFromProject(Long id) {

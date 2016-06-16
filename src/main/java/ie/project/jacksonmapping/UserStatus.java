@@ -10,6 +10,15 @@ public class UserStatus {
     private String login;
     private char[] password;
     private String email;
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getLogin() {
         return login;
