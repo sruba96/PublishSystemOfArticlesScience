@@ -29,6 +29,10 @@ public class User extends AbstractEntity {
     @OneToMany(mappedBy = "user")
     private List<File> files;
 
+    public void addProject(Project project){
+        projects.add(project);
+    }
+
     public String getLogin() {
         return login;
     }

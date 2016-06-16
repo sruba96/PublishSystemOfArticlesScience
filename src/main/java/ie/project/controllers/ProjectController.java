@@ -56,7 +56,11 @@ public class ProjectController {
     public ShowProjectsResponse showProject() {
 
         ShowProjectsResponse showProjectsResponse = new ShowProjectsResponse();
-        List<Project> projects = dbService.findProjectByOwner(sessionData.getLogin());
+        User user = dbService.findUserByEmailOrLogin(sessionData.getEmail(),sessionData.getLogin());
+//        if(user.equals(null))
+//            logger.info("user is null error");
+//        user.toString();
+        List<Project> projects = user.getProjects();
 //        ProjectMap projectMap = new ProjectMap(project.getName(), project.getDescription());
         List<ProjectMap> projectMapsList = new ArrayList<ProjectMap>();
 

@@ -78,7 +78,7 @@ public class DBService {
         project.setName("manie");
         project.setOwner("jacek");
         project.setDescription("bardzo fajny artykuł, na temat wykuwania stali");
-
+        project.addUser(user1);
         projectRepository.save(project);
 
     }
@@ -142,8 +142,10 @@ public class DBService {
         Project project = projectRepository.findById(projectId);
 
         project.addUser(user);
+        user.addProject(project);
 
         projectRepository.save(project);
+        userRepository.save(user);
 
         return true;
     }
@@ -211,7 +213,7 @@ public class DBService {
 
     public boolean saveProject(ProjectMap projectMap, String user) {
         Project project = new Project(projectMap, user);
-
+        project.addUser(findUserByEmailOrLogin(user));
         if (projectRepository.save(project) != null)
             return true;
         return false;
@@ -227,10 +229,10 @@ public class DBService {
     public List<Project> findProjectByOwner(String owner) {
         return projectRepository.findByOwner(owner);
     }
-
-    public List<Project> findProjectByUsersList(User user){
-        return projectRepository.findByUsers(user);
-    }
+//
+//    public List<Project> findProjectByUsersList(User user){
+//        return projectRepository.findByProjectUsers(user);
+//    }
 
     public Project findProjectById(Long id) {
         return projectRepository.findById(id);
