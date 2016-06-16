@@ -62,6 +62,7 @@ public class SessionData {
 
     public void setProjectId(Long projectId) {
         this.projectId = projectId;
+        this.isProjectId = true;
     }
 
     public int getId() {

@@ -18,5 +18,14 @@ app.controller('showUsersCtrl', function ($scope, $http) {
 
     $scope.showUsers();
 
+    this.selectToInvite = function (id) {
+        console.log("id is:"+id);
+        var ajax = $http.post('inviteUser',id);
+
+        ajax.success(function (data) {
+            if (data.result)
+                console.log("invited user");
+        });
+    };
 
 });

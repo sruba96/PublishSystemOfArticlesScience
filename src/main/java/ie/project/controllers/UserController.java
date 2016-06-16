@@ -1,5 +1,6 @@
 package ie.project.controllers;
 
+import ie.project.configuration.SessionData;
 import ie.project.domain.EmailAddress;
 import ie.project.domain.User;
 import ie.project.jacksonmapping.UserStatus;
@@ -23,6 +24,9 @@ public class UserController {
 
     @Autowired
     DBService dbService;
+
+    @Autowired
+    SessionData sessionData;
 
     @RequestMapping(value = {"/addUser"}, method = RequestMethod.POST)
     public AddUserResponse addUser(@RequestBody UserStatus userStatus) {
@@ -51,11 +55,23 @@ public class UserController {
         user.setPassword(userStatus.getPassword());
         return user;
     }
+//
+//    @RequestMapping(value = "/showUsers", method = RequestMethod.GET)
+//    public ShowUsersResponse userList() {
+//        ShowUsersResponse usersResponse = new ShowUsersResponse();
+//        usersResponse.setList(dbService.findAllUsers());
+//        usersResponse.setResult(true);
+//        return usersResponse;
+//    }
 
     @RequestMapping(value = "/showUsers", method = RequestMethod.GET)
-    public ShowUsersResponse userList() {
+    public ShowUsersResponse userListToInvite() {
+        if(!sessionData.isProjectId()) {
+            logger.info("not choose project");
+            return null;
+        }
         ShowUsersResponse usersResponse = new ShowUsersResponse();
-        usersResponse.setList(dbService.findAllUsers());
+        usersResponse.setList(dbService.findUserToInvite(sessionData.getProjectId()));
         usersResponse.setResult(true);
         return usersResponse;
     }

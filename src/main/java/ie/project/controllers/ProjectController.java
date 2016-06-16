@@ -92,9 +92,24 @@ public class ProjectController {
         logger.info(id);
         sessionData.setProjectId(id);
 
+
         logger.info("choose project");
         return new BasicResponse(true);
     }
 
+    @RequestMapping(value = {"/inviteUser"}, method = RequestMethod.POST)
+    public BasicResponse inviteUser(@RequestBody Long id) {
+
+        logger.info(id);
+        if(!sessionData.isProjectId())
+        {
+            logger.info("invite user error");
+            return null;
+        }
+        dbService.inviteUser(id, sessionData.getProjectId());
+
+        logger.info("invite user");
+        return new BasicResponse(true);
+    }
 
 }

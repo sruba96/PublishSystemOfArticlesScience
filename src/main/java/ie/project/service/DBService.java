@@ -48,6 +48,7 @@ public class DBService {
         user.setEmail(new EmailAddress(email));
         userRepository.save(user);
         User user1 = new User();
+        user1.setLogin("Janek");
         user1.setFirstName("John");
         user1.setLastName("Zorn");
         passwd = new char[]{'x', 'y', 'z'};
@@ -68,7 +69,7 @@ public class DBService {
         project.setName("Wykuwanie");
         project.setOwner("wacek");
         project.setDescription("bardzo fajny artykuł, na temat wykuwania stali");
-        project.addUser(user1);
+        project.addUser(user);
         project.addFiles(file);
         fileRepository.save(file);
         projectRepository.save(project);
@@ -112,17 +113,39 @@ public class DBService {
     ///////////////////////////////////////////////////////////////////////////
     // This code must be changed
     ///////////////////////////////////////////////////////////////////////////
-    public List<User> findUserToInvite(Long projectId) {
+    public List<UserStatus> findUserToInvite(Long projectId) {
 
 
         Project project = projectRepository.findById(projectId);
 
         List<User> all = userRepository.findAll();
+//        logger.info(all.toString());
         List<User> userList = project.getUsers();
+//        logger.info(userList.toString());
+
+        List<UserStatus> userStatusList = new ArrayList<>();
         all.removeAll(userList);
+//        logger.info(all.toString());
 
 
-        return all;
+        for (User u : all) {
+            UserStatus userStaus = u.convert();
+            userStatusList.add(userStaus);
+        }
+//        logger.info(userStatusList.toString());
+
+        return userStatusList;
+    }
+
+    public Boolean inviteUser(Long userId, Long projectId){
+        User user = userRepository.findById(userId);
+        Project project = projectRepository.findById(projectId);
+
+        project.addUser(user);
+
+        projectRepository.save(project);
+
+        return true;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -136,6 +159,7 @@ public class DBService {
 
         for (User u : users) {
             UserStatus userStaus = u.convert();
+            userStatusList.add(userStaus);
         }
         return userStatusList;
     }
@@ -202,6 +226,10 @@ public class DBService {
 
     public List<Project> findProjectByOwner(String owner) {
         return projectRepository.findByOwner(owner);
+    }
+
+    public List<Project> findProjectByUsersList(User user){
+        return projectRepository.findByUsers(user);
     }
 
     public Project findProjectById(Long id) {

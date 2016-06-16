@@ -3,6 +3,6 @@
     <div ng-repeat="u in c.users" style="margin: 2px; background: #c0b1b1;">
         login: {{ u.login }}<br/>
         email: {{ u.email}}<br/>
-        <!--<button ng-click="c.removeUser( u.id )">Remove</button>-->
+        <button ng-click="c.selectToInvite( u.id )">+</button>
     </div>
 </div>
